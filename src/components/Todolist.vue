@@ -19,14 +19,7 @@ export default class Todolist extends Vue {
    ]
   oldElems = this.elems;
   
-  search(searchText, elems, oldElems){
-    const newElems = oldElems.filter((elem) => {
-      return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
-    })
-    if(searchText === ''){
-      this.elems = oldElems;
-    }else this.elems = newElems;
-  }
+
 
   onDeleted(id, elems){
     const idx = elems.findIndex((el) => el.id === id);
@@ -34,10 +27,12 @@ export default class Todolist extends Vue {
       ...elems.slice(0,idx),
       ...elems.slice(idx+1)
     ]
+    console.log('before - ' + this.elems);
     this.elems = newElems;
+    console.log('after - ' + this.elems);
     this.oldElems = newElems;
   }
-
+  
   onOpened(id){
     this.$prompt('Please input your correct task', 'Editor', {
           confirmButtonText: 'Edit',
@@ -54,6 +49,26 @@ export default class Todolist extends Vue {
             message: 'Input canceled'
           });       
         });
+  }
+  search(searchText, elems, oldElems){
+    const newElems = oldElems.filter((elem) => {
+      return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
+    })
+    if(searchText === ''){
+      this.elems = oldElems;
+    }else this.elems = newElems;
+  }
+
+  onProgress = (elems) =>{
+    const completed = elems.filter((elem) => {
+      return elem.done;
+    });
+    console.log('compl - ' + completed.length);
+    console.log('elems - ' + elems.length);
+
+    // console.log(this.elems);
+    // console.log('done length - ' + completed.length + 'id - ' + this.id + elem.index)
+    return Math.floor((completed.length/elems.length)*100);
   }
 
   mounted(){
@@ -79,7 +94,9 @@ export default class Todolist extends Vue {
             </el-button-group>
         </el-row>
       </li>
+      <li class='li-progress'><el-progress :percentage="onProgress(this.elems)" type='circle'></el-progress></li>
     </ul>
+    
 </template>
 
 <style>
@@ -89,5 +106,10 @@ li{
 }
 .is-checked .el-checkbox__label{
   text-decoration: line-through;
+}
+.li-progress{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 </style>
