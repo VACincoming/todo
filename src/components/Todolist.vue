@@ -8,6 +8,7 @@ export default class Todolist extends Vue {
     return{
       id: ++this.id,
       label,
+      done:false,
     }
   }
 
@@ -28,10 +29,6 @@ export default class Todolist extends Vue {
   }
 
   onDeleted(id, elems){
-    // console.log(elems[1].id);
-    // console.log(...elems);
-    // console.log(elems);
-    // alert(this.elems + 'id - ' + id);
     const idx = elems.findIndex((el) => el.id === id);
     const newElems = [
       ...elems.slice(0,idx),
@@ -39,6 +36,24 @@ export default class Todolist extends Vue {
     ]
     this.elems = newElems;
     this.oldElems = newElems;
+  }
+
+  onOpened(id){
+    this.$prompt('Please input your correct task', 'Editor', {
+          confirmButtonText: 'Edit',
+          cancelButtonText: 'Cancel',
+        }).then(({ value }) => {
+          this.elems[id-1].label = value;
+          this.$message({
+            type: 'success',
+            message: 'Your task is:' + value
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Input canceled'
+          });       
+        });
   }
 
   mounted(){
@@ -50,7 +65,6 @@ export default class Todolist extends Vue {
     })
     eventBus.$on('on-search', (searchText) => this.search(searchText,this.elems, this.oldElems));
   }
-
 }
 </script>
 
@@ -58,9 +72,9 @@ export default class Todolist extends Vue {
     <ul class="list-wrapper" id="list">
       <li v-for="(elem, index) in elems" v-bind:key="index">
         <el-row type='flex' class='row-bg' justify="space-between">
-            <p>{{ elem.label }}</p>
+            <el-checkbox v-model="elem.done"><p>{{ elem.label }}</p></el-checkbox>
             <el-button-group>
-              <el-button><i class="el-icon-edit"></i></el-button>
+              <el-button @click="()=>onOpened(elem.id)"><i class="el-icon-edit"></i></el-button>
               <el-button @click="()=>onDeleted(elem.id, elems)"><i class="el-icon-delete"></i></el-button>
             </el-button-group>
         </el-row>
@@ -72,5 +86,8 @@ export default class Todolist extends Vue {
 li{
   text-decoration: none;
   list-style: none;
+}
+.is-checked .el-checkbox__label{
+  text-decoration: line-through;
 }
 </style>
