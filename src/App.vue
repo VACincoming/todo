@@ -1,31 +1,61 @@
+<script lang="ts">
+import { Vue, Component} from "vue-property-decorator";
+import Add from "./components/Add.vue";
+import Reverse from "./components/Reverse.vue";
+import Todolist from "./components/Todolist.vue";
+  @Component({
+    components: {
+      Add,
+      Todolist,
+      Reverse,
+    },
+  })
+export default class App extends Vue {
+}
+</script>
+
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <el-container>
+      <el-header></el-header>
+      <el-main>
+        <el-row type="flex" class="row-bg" justify="center">
+          <el-col :span="6">
+            <Add/>
+            <Reverse />
+            <todolist/>
+          </el-col>
+        </el-row>
+      </el-main>
+      <el-footer></el-footer>
+    </el-container>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .el-row {
+    margin-bottom: 20px;
+  }
+  .el-row:last-child {
+      margin-bottom: 0;
+    }
+  .el-col {
+    border-radius: 4px;
+    background-color: #f9fafc;
+    padding: 10px 50px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  
 </style>
