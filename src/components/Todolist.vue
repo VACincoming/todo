@@ -30,13 +30,11 @@ export default class Todolist extends Vue {
     this.elems = newElems;
     this.oldElems = newElems;
   }
-  
   onEdit(id){
     this.$prompt('Please input your correct task', 'Editor', {
           confirmButtonText: 'Edit',
           cancelButtonText: 'Cancel',
         }).then(({ value }) => {
-          alert(id);
           this.elems[id-1].label = value;
           this.$message({
             type: 'success',
