@@ -28,7 +28,7 @@ export default class Todo extends Vue {
           </el-col>
         </el-row>
       </el-main>
-      <!-- <el-footer></el-footer> -->
+      <el-footer></el-footer>
     </el-container>
   </div>
 </template>
