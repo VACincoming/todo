@@ -19,8 +19,9 @@ export default class Todo extends Vue {
     <el-container>
       <el-header></el-header>
       <el-main>
-        <el-row type="flex" class="row-bg" justify="center">
-          <el-col :xs='18' :sm='14' :md="12" :lg="7" >
+        <el-row type="flex" class="row-bg">
+          <el-col :span='24'>
+            <h1>My ToDo List</h1>
             <Add/>
             <Reverse />
             <todolist/>
