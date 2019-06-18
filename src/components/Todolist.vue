@@ -27,17 +27,16 @@ export default class Todolist extends Vue {
       ...elems.slice(0,idx),
       ...elems.slice(idx+1)
     ]
-    console.log('before - ' + this.elems);
     this.elems = newElems;
-    console.log('after - ' + this.elems);
     this.oldElems = newElems;
   }
   
-  onOpened(id){
+  onEdit(id){
     this.$prompt('Please input your correct task', 'Editor', {
           confirmButtonText: 'Edit',
           cancelButtonText: 'Cancel',
         }).then(({ value }) => {
+          alert(id);
           this.elems[id-1].label = value;
           this.$message({
             type: 'success',
@@ -63,11 +62,7 @@ export default class Todolist extends Vue {
     const completed = elems.filter((elem) => {
       return elem.done;
     });
-    console.log('compl - ' + completed.length);
-    console.log('elems - ' + elems.length);
-
-    // console.log(this.elems);
-    // console.log('done length - ' + completed.length + 'id - ' + this.id + elem.index)
+    if(elems.length === 0 ) return 0;
     return Math.floor((completed.length/elems.length)*100);
   }
 
@@ -88,8 +83,8 @@ export default class Todolist extends Vue {
       <li v-for="(elem, index) in elems" v-bind:key="index">
         <el-row type='flex' class='row-bg' justify="space-between">
             <el-checkbox v-model="elem.done"><p>{{ elem.label }}</p></el-checkbox>
-            <el-button-group>
-              <el-button @click="()=>onOpened(elem.id)"><i class="el-icon-edit"></i></el-button>
+            <el-button-group > 
+              <el-button @click="()=>onEdit(elem.id)"><i class="el-icon-edit"></i></el-button>
               <el-button @click="()=>onDeleted(elem.id, elems)"><i class="el-icon-delete"></i></el-button>
             </el-button-group>
         </el-row>
@@ -111,5 +106,8 @@ li{
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+ul{
+  margin-left: -9%;
 }
 </style>

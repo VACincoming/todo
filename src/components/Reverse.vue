@@ -19,7 +19,7 @@ export default class Reverse extends Vue {
     <el-form id="form">
       <el-row :gutter='1'>
         <el-col :span="6.5"><el-button v-on:click="onReverse">Reverse<i class="el-icon-sort" /></el-button> </el-col>
-        <el-col :span="10"><el-input type="text" v-model="searchText"/></el-col>
+        <el-col :span="11"><el-input type="text" v-model="searchText"/></el-col>
         <el-col :span="4"><el-button icon="el-icon-search" v-on:click="onSearch">Search</el-button></el-col>
       </el-row>
     </el-form>
