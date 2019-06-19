@@ -1,6 +1,6 @@
 <script>
 import {Vue, Component} from "vue-property-decorator";
-import {eventBus} from './eventbus';
+import {eventBus} from '../components/eventbus';
 @Component
 export default class ProgressBar extends Vue{
 

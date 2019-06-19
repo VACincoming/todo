@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Todo from "./components/Todo.vue";
+import Todo from "./pages/Todo.vue";
 
 Vue.use(Router);
 export default new Router({
@@ -12,19 +12,19 @@ export default new Router({
     },
     {
       path: "/progress",
-      component: () => import("./components/ProgressBar.vue")
+      component: () => import("./pages/ProgressBar.vue")
     },
     {
-      path: "/todo/yesterday",
-      component: () => import("./components/Yesterday.vue")
+      path: "/todo/prevdaytodo",
+      component: () => import("./pages/PrevDayTodo.vue")
     },
     {
-      path: "/todo/tomorrow",
-      component: () => import("./components/Tomorrow.vue")
+      path: "/todo/nextdaytodo",
+      component: () => import("./pages/NextDayTodo.vue")
     },
     {
     path: "/",
-    component: () => import ("./components/Home.vue")
+    component: () => import ("./pages/HomePage.vue")
     }
   ]
 });
