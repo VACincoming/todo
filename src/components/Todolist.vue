@@ -1,31 +1,28 @@
 <script>
 import { Vue , Component} from "vue-property-decorator"
 import {eventBus} from './eventbus.js'
-// import TodoListItem from './TodoListItem'
 import '../assets/styles/main.css'
-@Component({
-  components:{
-    // TodoListItem,
-  }
-})
+import { namespace } from "vuex-class"
+import {mapGetters, mapActions, mapMutations, mapState} from 'vuex'
+
+// const store = namespace();
+// const elems = namespace('elems');
+@Component
 export default class Todolist extends Vue {
+  // @store.Action AddList;
+  // @store.State elems;
   id = 0;
-  createList (label){
-    return{
+  createList(label){
+    return {
       id: ++this.id,
       label,
       done:false,
     }
+    // call action with data(task)
   }
 
-  onDeletedItem(id, elems){
-    const idx = elems.findIndex((el) => el.id === id);
-    const newElems = [
-      ...elems.slice(0,idx),
-      ...elems.slice(idx+1)
-    ]
-    this.elems = newElems;
-    this.oldElems = newElems;
+  onDeletedItem(id){
+    this.$store.dispatch('DeleteItem', id)
   }
   onEditItem(id){
     this.$prompt('Please input your correct task', 'Editor', {
@@ -33,7 +30,7 @@ export default class Todolist extends Vue {
           cancelButtonText: 'Cancel',
         }).then(({ value }) => {
           if(value.length >= 2 && value.length < 50){
-            this.elems[id-1].label = value;
+            this.$store.state.elems[id-1].label = value;
             this.$message({
               type: 'success',
               message: 'Your task is:' + value
@@ -47,42 +44,46 @@ export default class Todolist extends Vue {
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: 'Input canceled, value length < 2 or > 50',
+            message: 'Input canceled',
           });       
         });
   }
 
 
-  oldElems = [];
-  elems =[];
-  matches = false;
 
-    search(searchText, elems, oldElems){
-      const newElems = this.oldElems.filter((elem) => {
-        return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
-      })
-      if(newElems.length === 0) this.matches = true;
-      else this.matches = false;
-      if(searchText === ''){
-        this.elems = this.oldElems;
-      }else this.elems = newElems; 
+  matches = false;
+  
+  search(searchText, elems, oldElems){
+    elems = oldElems;
+    const newElems = oldElems.filter((elem) => {
+      return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
+    })
+    if(newElems.length === 0) this.$store.dispatch('noMatches', true);
+    else this.$store.dispatch('noMatches', false);
+    if(searchText === ''){
+      const payload = {'key1': oldElems, 'key2': false}
+      this.$store.dispatch('Search',payload);
+    }else {
+      const payload = {'key1': newElems, 'key2': true}
+      this.$store.dispatch('Search',payload); 
     }
+  }
+
+  created(){
+
+  }
 
   mounted(){
-    this.elems = [
-      this.createList('Learn Vue'),
-      this.createList("Make ToDo"),
-      this.createList("Make Coffee"),
-      ];
-    this.oldElems = this.elems;
-    eventBus.$on('on-add',(text) =>{
-    this.elems.push(this.createList(text));
-    this.matches = false;
+    this.$store.dispatch('AddList', this.createList('Make Awesome App'));
+    this.$store.dispatch('AddList', this.createList('Make Coffee'));
+    this.$store.dispatch('AddList', this.createList('Learn Todo'));
+    this.oldElems = this.$store.state.elems;
+    eventBus.$on('on-add',(text) => {
+      this.$store.dispatch('AddList', this.createList(text));
+      this.matches = false;
+      
     })
-    eventBus.$on('on-reverse', (elems) =>{
-    this.elems = this.elems.reverse();
-    })
-    eventBus.$on('on-search', (searchText) => this.search(searchText,this.elems, this.oldElems));
+    eventBus.$on('on-search', (searchText) => this.search(searchText,this.$store.state.elems, this.oldElems));
   }
 onProgress(elems){
     const completed = elems.filter((elem) => {
@@ -92,26 +93,25 @@ onProgress(elems){
     return Math.floor((completed.length/elems.length)*100);
   }
 }
-</script>
 
+</script>
+  
 <template>
 <div>
-      <!-- <ul class="list-wrapper" id="list"> -->
-        <h4 v-show='matches' class="animated rubberBand">No matches</h4>
-        <!-- <li class='li-progress'><el-progress :percentage="onProgress(this.elems)" type='circle'></el-progress></li> -->
+      <h4 v-show='this.$store.state.matches' class="animated rubberBand">No matches</h4>
        <transition-group name="list" tag="ul">
-          <li v-for="(elem, id) in elems" v-bind:key="id" class="list-item">
+          <li v-for="(elem, id) in this.$store.state.elems" v-bind:key="id" class="list-item">
             <el-row type='flex' class='row-bg' justify="space-between" >
               <el-col :span='12'>
                 <el-checkbox v-model="elem.done"><p>{{ elem.label }}</p></el-checkbox></el-col>
                 <el-col :span='12'><el-button-group > 
                   <el-button @click="()=>onEditItem(elem.id)"><i class="el-icon-edit"></i></el-button>
-                  <el-button @click="()=>onDeletedItem(elem.id, elems)"><i class="el-icon-delete"></i></el-button>
+                  <el-button @click="()=>onDeletedItem(elem.id)"><i class="el-icon-delete"></i></el-button>
                 </el-button-group></el-col>
             </el-row>
           </li>
         </transition-group>
-      <!-- </ul> -->
+        <li class='li-progress'><el-progress :percentage="onProgress(this.$store.state.elems)" type='circle'></el-progress></li>
     </div>
 </template>
 

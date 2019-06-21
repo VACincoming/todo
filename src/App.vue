@@ -15,7 +15,7 @@ export default class App extends Vue {
 <template>
   <div id="app">
     <el-row type='flex' class='row-bg'>
-      <el-col :span="4">
+      <el-col :xs="15" :md="15" :lg="4" :sm="15">
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -38,8 +38,8 @@ export default class App extends Vue {
       </el-menu-item></router-link>
     </el-menu>
   </el-col>
-      <el-col :offset="5" :xs='18' :sm='14' :md="12" :lg="7" class='purple'>
-          <router-view></router-view>
+      <el-col :offset="5" :xs='18' :sm='14' :md="12" :lg="9" class='purple'>
+          <keep-alive><router-view></router-view></keep-alive>
         </el-col>
     </el-row>
   </div>

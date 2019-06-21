@@ -5,7 +5,8 @@ import {eventBus} from './eventbus'
 export default class Reverse extends Vue {
   searchText = '';
   onReverse(){
-    eventBus.$emit('on-reverse');
+    // console.log('filter');
+    this.$store.dispatch('ReverseList', this.$store.state);
   }
   onSearch(){
     eventBus.$emit('on-search', this.searchText);
