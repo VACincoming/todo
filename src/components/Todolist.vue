@@ -54,29 +54,34 @@ export default class Todolist extends Vue {
   matches = false;
   
   search(searchText, elems, oldElems){
-    // console.log(oldElems);
-    console.log(elems);
+    elems = oldElems;
     const newElems = oldElems.filter((elem) => {
       return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
     })
-    if(newElems.length === 0) this.matches = true;
-    else this.matches = false;
+    if(newElems.length === 0) this.$store.dispatch('noMatches', true);
+    else this.$store.dispatch('noMatches', false);
     if(searchText === ''){
-      elems = oldElems;
-    }else elems = newElems; 
+      const payload = {'key1': oldElems, 'key2': false}
+      this.$store.dispatch('Search',payload);
+    }else {
+      const payload = {'key1': newElems, 'key2': true}
+      this.$store.dispatch('Search',payload); 
+    }
+  }
+
+  created(){
+
   }
 
   mounted(){
-      // const oldElems = this.$store.state.elems;
-      // let testObj = this.createList('Make Coffee');
-      this.$store.dispatch('AddList', this.createList('Make Awesome App'));
-      this.$store.dispatch('AddList', this.createList('Make Coffee'));
-      this.$store.dispatch('AddList', this.createList('Learn Todo'));
-      this.oldElems = this.$store.state.elems;
-
+    this.$store.dispatch('AddList', this.createList('Make Awesome App'));
+    this.$store.dispatch('AddList', this.createList('Make Coffee'));
+    this.$store.dispatch('AddList', this.createList('Learn Todo'));
+    this.oldElems = this.$store.state.elems;
     eventBus.$on('on-add',(text) => {
       this.$store.dispatch('AddList', this.createList(text));
       this.matches = false;
+      
     })
     eventBus.$on('on-search', (searchText) => this.search(searchText,this.$store.state.elems, this.oldElems));
   }

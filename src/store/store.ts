@@ -8,29 +8,34 @@ export default new Vuex.Store({
     elems: [],
     oldElems: [],
     matches: false,
+    isInSearch: false,
   },
   mutations: {
     setList(state, task){
       state.elems.push(task);
+      state.oldElems.push(task);
     },
     setReverseList(state, reverseList){
       state.elems = reverseList;
     },
     setDeleteItem(state, elems){
-      // console.log(payload);
       state.elems = elems;
     },
-    setSearch(state, newElems){
-      state.oldElems = state.elems;
-      state.elems = newElems;
-      state.matches = false;
+    setSearch(state, payload){
+      state.elems = payload.key1;
+      state.isInSearch = payload.key2;
     },
     setNoMatches(state, flag){
       state.matches = flag;
-      state.elems = [];
+    },
+    setEmptySearch(state, oldElems){
+      state.elems = oldElems;
     }
   },
   actions: {
+    noMatches({commit}, flag){
+      commit("setNoMatches", flag)
+    },
     AddList({ commit }, task){
       commit("setList", task);
   },
@@ -49,21 +54,11 @@ export default new Vuex.Store({
       const elems = newElems;
       commit('setDeleteItem', elems);
     },
-    Search({commit}, searchText){
-      const newElems = this.state.elems.filter((elem) => {
-        return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
-      })
-      if(newElems.length > 0){
-         commit('setSearch', newElems);
-      }
-      if(newElems.length === 0) {
-       commit('setNoMatches', true)
-      }
-      // else this.state.matches = false;
-      // if(searchText === ''){
-      //   commit('setSearch', false)
-      // }else commit('setSearch', true)
-      // console.log(newElems);
+    Search({commit}, payload){
+     commit('setSearch', payload);
+    },
+    EmptySearch({commit}, oldElems){
+      commit('setEmptySearch', oldElems)
     }
 },
   getters: {
