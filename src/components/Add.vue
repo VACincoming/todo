@@ -29,7 +29,7 @@ export default class Add extends Vue {
     <el-form id="form">
       <el-row :gutter='5'>
         <p v-show='this.$store.state.isInSearch'>Что бы добавить Task, выйдите с режима поиска</p>
-        <el-col :span="18"><el-input type="text" v-model='text'/></el-col>
+        <el-col :span="18"><el-input :disabled='this.$store.state.isInSearch' type="text" v-model='text'/></el-col>
         <el-col :span="6"><el-button :disabled="!this.activate" v-on:click="onAdd">Add</el-button></el-col>
       </el-row>
     </el-form>
