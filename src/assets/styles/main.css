@@ -69,3 +69,7 @@ li{
 .flip-list-move {
   transition: transform 1s;
 }
+
+.el-menu{
+  height:100vh;
+}
