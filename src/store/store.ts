@@ -1,88 +1,90 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import { Vue, Component } from 'vue-property-decorator'
+import Vuex from 'vuex'
 import todo from './modules/todo'
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    elems: [],
+    elems:[],
     oldElems: [],
     matches: false,
     isInSearch: false,
   },
   mutations: {
-    setList(state, task){
-      state.elems.push(task);
-      state.oldElems.push(task);
+    setList(state, task) {
+      state.elems.push(task)
+      state.oldElems.push(task)
     },
-    setReverseList(state, reverseList){
-      state.elems = reverseList;
+    setReverseList(state, reverseList) {
+      state.elems = reverseList
     },
-    setDeleteItem(state, elems){
-      state.elems = elems;
+    setDeleteItem(state, elems) {
+      state.elems = elems
     },
-    setSearch(state, payload){
-      state.elems = payload.key1;
-      state.isInSearch = payload.key2;
+    setSearch(state, payload) {
+      state.elems = payload.key1
+      state.isInSearch = payload.key2
     },
-    setNoMatches(state, flag){
-      state.matches = flag;
+    setNoMatches(state, flag) {
+      state.matches = flag
     },
-    setEmptySearch(state, oldElems){
-      state.elems = oldElems;
+    setEmptySearch(state, oldElems) {
+      state.elems = oldElems
     },
-    setInit(state, correctData){
-      state.elems.push(correctData);
-      console.log(state.elems);
-    }
+    setInit(state, correctData) {
+      state.elems.push(correctData)
+    },
   },
   actions: {
-    noMatches({commit}, flag){
-      commit("setNoMatches", flag)
+    noMatches({ commit }, flag) {
+      commit('setNoMatches', flag)
     },
-    async InitList({commit}){
-      const data = await fetch('https://jsonplaceholder.typicode.com/todos/4')
-                          .then(response => response.json())
-                          // .then(json => console.log(json));
-                          
-      const correctData = {id: data.id, label: data.title, done: data.completed};
-      commit('setInit', correctData);
-      console.log(correctData);
+    async InitList({ commit }) {
+      const data = await fetch(
+        'https://jsonplaceholder.typicode.com/todos/4'
+      ).then(response => response.json())
+      // .then(json => console.log(json));
+
+      const correctData = {
+        id: data.id,
+        label: data.title,
+        done: data.completed,
+      }
+      commit('setInit', correctData)
+      console.log(correctData)
     },
-    AddList({ commit }, task){
-      commit("setList", task);
-  },
-    ReverseList({ commit }, state){
-      let reverseList = state.elems.reverse();
-      commit("setReverseList", reverseList);
+    AddList({ commit }, task:Object) {
+      commit('setList', task)
+    },
+    ReverseList({ commit }, state) {
+      let reverseList = state.elems.reverse()
+      commit('setReverseList', reverseList)
     },
 
-    DeleteItem({commit}, id){
-      const idx = this.state.elems.findIndex((el) => el.id === id);
+    DeleteItem({ commit }, id) {
+      const idx = this.state.elems.findIndex(el => el.id === id)
       const newElems = [
         ...this.state.elems.slice(0, idx),
-        ...this.state.elems.slice(idx + 1)
+        ...this.state.elems.slice(idx + 1),
       ]
-      const oldElems = newElems;
-      const elems = newElems;
-      commit('setDeleteItem', elems);
+      const oldElems = newElems
+      const elems = newElems
+      commit('setDeleteItem', elems)
     },
-    Search({commit}, payload){
-     commit('setSearch', payload);
+    Search({ commit }, payload) {
+      commit('setSearch', payload)
     },
-    EmptySearch({commit}, oldElems){
+    EmptySearch({ commit }, oldElems) {
       commit('setEmptySearch', oldElems)
-    }
-},
+    },
+  },
   getters: {
-    ELEMS(state){
-      return state.elems;
-    }
-
+    ELEMS(state) {
+      return state.elems
+    },
   },
 
   modules: {
-    todo
-  }
-});
-
+    todo,
+  },
+})

@@ -70,6 +70,10 @@ li{
   transition: transform 1s;
 }
 
-.el-menu{
+.el-menu-vertical-demo{
   height:100vh;
+
+}
+.menu-wrapper{
+  padding: 0;
 }

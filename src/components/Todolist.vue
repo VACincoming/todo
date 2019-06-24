@@ -80,7 +80,7 @@ export default class Todolist extends Vue {
     this.$store.dispatch('InitList');
     this.oldElems = this.$store.state.elems;
     eventBus.$on('on-add',(text) => {
-      this.$store.dispatch('AddList', this.createList(text));
+      this.$store.dispatch('AddList', this.createList(text) );
       this.matches = false;
       
     })
@@ -109,4 +109,3 @@ export default class Todolist extends Vue {
         
     </div>
 </template>
-

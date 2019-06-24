@@ -1,18 +1,17 @@
 <script lang="ts">
-import { Vue, Component} from "vue-property-decorator";
-import FilterTodo from "../components/FilterTodo.vue";
-import Add from "../components/Add.vue";
-import Todolist from "../components/Todolist.vue";
+import { Vue, Component } from 'vue-property-decorator'
+import FilterTodo from '../components/FilterTodo.vue'
+import Add from '../components/Add.vue'
+import Todolist from '../components/Todolist.vue'
 import '../assets/styles/main.css'
-  @Component({
-    components: {
-      Add,
-      Todolist,
-      FilterTodo,
-    },
-  })
-export default class Todo extends Vue {
-}
+@Component({
+  components: {
+    Add,
+    Todolist,
+    FilterTodo,
+  },
+})
+export default class Todo extends Vue {}
 </script>
 
 <template>
@@ -20,11 +19,11 @@ export default class Todo extends Vue {
     <el-container>
       <el-main>
         <el-row type="flex" class="row-bg">
-          <el-col :offset='3' :xs="24" :md="17" :lg="14" :sm="20">
+          <el-col :offset="5" :xs="24" :md="17" :lg="10" :sm="20">
             <h1>My ToDo List</h1>
-            <Add/>
+            <Add />
             <FilterTodo />
-            <todolist/>
+            <todolist />
           </el-col>
         </el-row>
       </el-main>
