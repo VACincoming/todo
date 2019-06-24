@@ -5,19 +5,22 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "animate.css": "^3.7.2",
     "core-js": "^2.6.5",
     "element-ui": "^2.9.1",
     "es6-promise": "^4.2.8",
+    "npx": "^10.2.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.6",
     "vuex": "^3.1.1",
-    "vuex-class": "^0.3.2"
+    "vuex-class": "^0.3.2",
+    "vuex-class-component": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "^12.0.8",
@@ -28,6 +31,7 @@
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-typescript": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "cypress": "^2.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "typescript": "^3.4.3",

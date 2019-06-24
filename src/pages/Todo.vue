@@ -18,10 +18,9 @@ export default class Todo extends Vue {
 <template>
   <div id="todo">
     <el-container>
-      <el-header></el-header>
       <el-main>
         <el-row type="flex" class="row-bg">
-          <el-col :span='24'>
+          <el-col :offset='3' :xs="24" :md="17" :lg="14" :sm="20">
             <h1>My ToDo List</h1>
             <Add/>
             <FilterTodo />

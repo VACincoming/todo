@@ -30,11 +30,24 @@ export default new Vuex.Store({
     },
     setEmptySearch(state, oldElems){
       state.elems = oldElems;
+    },
+    setInit(state, correctData){
+      state.elems.push(correctData);
+      console.log(state.elems);
     }
   },
   actions: {
     noMatches({commit}, flag){
       commit("setNoMatches", flag)
+    },
+    async InitList({commit}){
+      const data = await fetch('https://jsonplaceholder.typicode.com/todos/4')
+                          .then(response => response.json())
+                          // .then(json => console.log(json));
+                          
+      const correctData = {id: data.id, label: data.title, done: data.completed};
+      commit('setInit', correctData);
+      console.log(correctData);
     },
     AddList({ commit }, task){
       commit("setList", task);

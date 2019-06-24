@@ -77,6 +77,7 @@ export default class Todolist extends Vue {
     this.$store.dispatch('AddList', this.createList('Make Awesome App'));
     this.$store.dispatch('AddList', this.createList('Make Coffee'));
     this.$store.dispatch('AddList', this.createList('Learn Todo'));
+    this.$store.dispatch('InitList');
     this.oldElems = this.$store.state.elems;
     eventBus.$on('on-add',(text) => {
       this.$store.dispatch('AddList', this.createList(text));
@@ -85,14 +86,8 @@ export default class Todolist extends Vue {
     })
     eventBus.$on('on-search', (searchText) => this.search(searchText,this.$store.state.elems, this.oldElems));
   }
-onProgress(elems){
-    const completed = elems.filter((elem) => {
-      return elem.done;
-    });
-    if(elems.length === 0 ) return 0;
-    return Math.floor((completed.length/elems.length)*100);
-  }
 }
+
 
 </script>
   
@@ -111,7 +106,7 @@ onProgress(elems){
             </el-row>
           </li>
         </transition-group>
-        <li class='li-progress'><el-progress :percentage="onProgress(this.$store.state.elems)" type='circle'></el-progress></li>
+        
     </div>
 </template>
 
