@@ -12,6 +12,7 @@ export default class Todolist extends Vue {
   // @store.Action AddList;
   // @store.State elems;
   id = 0;
+  matches = false;
   createList(label){
     return {
       id: ++this.id,
@@ -29,8 +30,8 @@ export default class Todolist extends Vue {
           confirmButtonText: 'Edit',
           cancelButtonText: 'Cancel',
         }).then(({ value }) => {
-          if(value.length >= 2 && value.length < 50){
-            this.$store.state.elems[id-1].label = value;
+          if(value.length >= 2 && value.length < 50 && !value.indexOf(1) === -1){
+            store.state.elems[id-1].label = value;
             this.$message({
               type: 'success',
               message: 'Your task is:' + value
@@ -38,7 +39,7 @@ export default class Todolist extends Vue {
           }else{
             this.$message({
               type: 'info',
-              message: 'Input canceled, value length < 2 or > 50',
+              message: 'Input canceled, value length < 2 or > 50 and no space and start line',
             })
           }
         }).catch(() => {
@@ -51,7 +52,7 @@ export default class Todolist extends Vue {
 
 
 
-  matches = false;
+
   
   search(searchText, elems, oldElems){
     elems = oldElems;
@@ -80,9 +81,16 @@ export default class Todolist extends Vue {
     this.$store.dispatch('InitList');
     this.oldElems = this.$store.state.elems;
     eventBus.$on('on-add',(text) => {
+      if(text.indexOf(1) === -1){
+        this.$store.dispatch('Alert', true);
+        setTimeout(() => {
+          this.$store.dispatch('Alert', false);
+        }, 5000);
+      }else{
+        // alert(text.indexOf(1))
       this.$store.dispatch('AddList', this.createList(text) );
       this.matches = false;
-      
+      }
     })
     eventBus.$on('on-search', (searchText) => this.search(searchText,this.$store.state.elems, this.oldElems));
   }
@@ -93,19 +101,18 @@ export default class Todolist extends Vue {
   
 <template>
 <div>
-      <h4 v-show='this.$store.state.matches' class="animated rubberBand">No matches</h4>
-       <transition-group name="list" tag="ul">
-          <li v-for="(elem, id) in this.$store.state.elems" v-bind:key="id" class="list-item">
-            <el-row type='flex' class='row-bg' justify="space-between" >
-              <el-col :span='12'>
-                <el-checkbox v-model="elem.done"><p>{{ elem.label }}</p></el-checkbox></el-col>
-                <el-col :span='12'><el-button-group > 
-                  <el-button @click="()=>onEditItem(elem.id)"><i class="el-icon-edit"></i></el-button>
-                  <el-button @click="()=>onDeletedItem(elem.id)"><i class="el-icon-delete"></i></el-button>
-                </el-button-group></el-col>
-            </el-row>
-          </li>
-        </transition-group>
-        
+  <h4 v-show='this.$store.state.matches' class="animated rubberBand">No matches</h4>
+    <transition-group name="list" tag="ul">
+      <li v-for="(elem, id) in this.$store.state.elems" v-bind:key="id" class="list-item">
+        <el-row type='flex' class='row-bg' justify="space-between" >
+          <el-col :span='12'>
+            <el-checkbox v-model="elem.done"><p>{{ elem.label }}</p></el-checkbox></el-col>
+            <el-col :span='12'><el-button-group > 
+              <el-button @click="()=>onEditItem(elem.id)"><i class="el-icon-edit"></i></el-button>
+              <el-button @click="()=>onDeletedItem(elem.id)"><i class="el-icon-delete"></i></el-button>
+            </el-button-group></el-col>
+        </el-row>
+      </li>
+    </transition-group>
     </div>
 </template>

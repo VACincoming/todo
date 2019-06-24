@@ -9,6 +9,7 @@ export default new Vuex.Store({
     oldElems: [],
     matches: false,
     isInSearch: false,
+    alertMsg: false
   },
   mutations: {
     setList(state, task) {
@@ -34,8 +35,14 @@ export default new Vuex.Store({
     setInit(state, correctData) {
       state.elems.push(correctData)
     },
+    setAlert(state, flag){
+      state.alertMsg = flag;
+    }
   },
   actions: {
+    Alert({ commit }, flag){
+      commit('setAlert', flag);
+    },
     noMatches({ commit }, flag) {
       commit('setNoMatches', flag)
     },
@@ -51,7 +58,6 @@ export default new Vuex.Store({
         done: data.completed,
       }
       commit('setInit', correctData)
-      console.log(correctData)
     },
     AddList({ commit }, task:Object) {
       commit('setList', task)

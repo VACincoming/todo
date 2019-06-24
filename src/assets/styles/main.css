@@ -7,7 +7,7 @@
   .el-col {
     border-radius: 4px;
     background-color: #f9fafc;
-    padding: 10px 50px;
+    padding: 5px 50px;
   }
   .bg-purple-dark {
     background: #99a9bf;
@@ -76,4 +76,12 @@ li{
 }
 .menu-wrapper{
   padding: 0;
+}
+.el-alert{
+  padding:20px;
+  margin-top: 0;
+}
+
+.el-main{
+  padding-top:0;
 }
