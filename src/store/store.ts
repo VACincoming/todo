@@ -1,13 +1,13 @@
 import { Vue, Component } from "vue-property-decorator";
 import Vuex from "vuex";
-import todo from "./modules/todo";
+import elems from "./modules/todo";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     id: 0,
-    elems: [],
-    oldElems: [],
+    elems: Array<elems>(),
+    oldElems: Array<elems>(),
     matches: false,
     isInSearch: false,
     alertMsg: false
@@ -87,9 +87,5 @@ export default new Vuex.Store({
       commit("setEmptySearch", oldElems);
     }
   },
-  getters: {},
-
-  modules: {
-    todo
-  }
+  getters: {}
 });

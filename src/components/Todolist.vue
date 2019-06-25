@@ -26,10 +26,15 @@ export default class Todolist extends Vue {
     this.$store.dispatch("DeleteItem", id);
   }
   onEditItem(id) {
-    this.$prompt("Please input your correct task", "Editor", {
-      confirmButtonText: "Edit",
-      cancelButtonText: "Cancel"
-    })
+    this.$prompt(
+      "Please input your correct task",
+      "Editor",
+      {
+        confirmButtonText: "Edit",
+        cancelButtonText: "Cancel"
+      },
+      { passive: true }
+    )
       .then(({ value }) => {
         const idx = this.$store.state.elems.findIndex(el => el.id === id);
         if (value.trim().length >= 2 && value.trim().length < 50) {

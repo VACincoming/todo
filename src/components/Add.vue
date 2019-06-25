@@ -9,11 +9,11 @@ export default class Add extends Vue {
     eventBus.$emit("on-add", this.text);
     this.text = "";
   }
-
+  isInSearchFlag() {
+    return !!this.text && !this.$store.state.isInSearch;
+  }
   updated() {
-    // console.log('activate');
-    // (this.text && this.$store.state.isInSearch) ? this.activate = false : this.activate = true ;
-    if (!!this.text && !this.$store.state.isInSearch) {
+    if (this.isInSearchFlag) {
       this.activate = true;
     } else {
       this.activate = false;
