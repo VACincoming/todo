@@ -10,7 +10,8 @@ export default new Vuex.Store({
     oldElems: Array<elems>(),
     matches: false,
     isInSearch: false,
-    alertMsg: false
+    alertMsg: false,
+    alertMsgSpace: false,
   },
   mutations: {
     setList(state, task) {
@@ -32,25 +33,31 @@ export default new Vuex.Store({
       state.elems = payload.key1;
       state.isInSearch = payload.key2;
     },
-    setNoMatches(state, flag) {
+    setNoMatches(state, flag:boolean) {
       state.matches = flag;
     },
     setEmptySearch(state, oldElems) {
       state.elems = oldElems;
     },
-    setInit(state, correctData) {
+    setInit(state, correctData:elems) {
       state.elems.push(correctData);
       state.oldElems = state.elems;
     },
-    setAlert(state, flag) {
+    setAlert(state, flag:boolean) {
       state.alertMsg = flag;
+    },
+    setAlertSpace(state, flag:boolean) {
+      state.alertMsgSpace = flag;
     }
   },
   actions: {
-    Alert({ commit }, flag) {
+    Alert({ commit }, flag:boolean) {
       commit("setAlert", flag);
     },
-    noMatches({ commit }, flag) {
+    AlertSpace({ commit }, flag:boolean) {
+      commit("setAlertSpace", flag);
+    },
+    noMatches({ commit }, flag:boolean) {
       commit("setNoMatches", flag);
     },
     async InitList({ commit }) {
@@ -72,7 +79,7 @@ export default new Vuex.Store({
       commit("setReverseList", reverseList);
     },
 
-    DeleteItem({ commit }, id) {
+    DeleteItem({ commit }, id: number) {
       const idx = this.state.oldElems.findIndex(el => el.id === id);
       const newElems = [
         ...this.state.oldElems.slice(0, idx),
@@ -83,7 +90,7 @@ export default new Vuex.Store({
     Search({ commit }, payload) {
       commit("setSearch", payload);
     },
-    EmptySearch({ commit }, oldElems) {
+    EmptySearch({ commit }, oldElems:elems) {
       commit("setEmptySearch", oldElems);
     }
   },

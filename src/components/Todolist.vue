@@ -5,12 +5,8 @@ import "../assets/styles/main.css";
 import { namespace } from "vuex-class";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 
-// const store = namespace();
-// const elems = namespace('elems');
 @Component
 export default class Todolist extends Vue {
-  // @store.Action AddList;
-  // @store.State elems;
   id = 0;
   matches = false;
   createList(label) {
@@ -19,7 +15,6 @@ export default class Todolist extends Vue {
       label,
       done: false
     };
-    // call action with data(task)
   }
 
   onDeletedItem(id) {
@@ -32,9 +27,7 @@ export default class Todolist extends Vue {
       {
         confirmButtonText: "Edit",
         cancelButtonText: "Cancel"
-      },
-      { passive: true }
-    )
+      },{passive:true})
       .then(({ value }) => {
         const idx = this.$store.state.elems.findIndex(el => el.id === id);
         if (value.trim().length >= 2 && value.trim().length < 50) {
@@ -60,8 +53,6 @@ export default class Todolist extends Vue {
   }
 
   search(searchText) {
-    // elems = elems;
-    // this.$store.state.elems = this.$store.state.oldElems;
     const newElems = this.$store.state.oldElems.filter(elem => {
       return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
     });
@@ -77,26 +68,26 @@ export default class Todolist extends Vue {
       this.$store.dispatch("Search", payload);
     }
   }
-
-  // created() {}
-  // watch() {
-  //   this.oldElems = this.$store.state.elems;
-  // }
   mounted() {
     this.$store.dispatch("InitList");
     this.$store.dispatch("InitList");
-    // this.$store.dispatch("AddList", this.createList("Make Awesome App"));
-    // this.oldElems = this.$store.state.elems;
     eventBus.$on("on-add", text => {
-      if (text.trim().length < 2) {
-        this.$store.dispatch("Alert", true);
+      if( text.trim().length < 1){
+        this.$store.dispatch("AlertSpace", true);
         setTimeout(() => {
+          this.$store.dispatch("AlertSpace", false);
+        }, 2000);
+        return;
+      } 
+      if (this.$store.state.elems.some(x => x.label === text.trim())) {
+      this.$store.dispatch("Alert", true);
+       setTimeout(() => {
           this.$store.dispatch("Alert", false);
-        }, 5000);
-      } else {
-        this.$store.dispatch("AddList", this.createList(text.trim()));
-        this.matches = false;
+        }, 2000);
+      return;
       }
+    this.$store.dispatch("AddList", this.createList(text.trim()));
+    this.matches = false;
     });
     eventBus.$on("on-search", searchText => this.search(searchText));
   }

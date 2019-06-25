@@ -24,7 +24,16 @@ export default class Todo extends Vue {}
               v-show="this.$store.state.alertMsg"
               title="Error alert"
               type="error"
-              description="Task can not begin with space"
+              description="This ToDo item has already exists in your list"
+              show-icon
+              center
+            >
+            </el-alert>
+            <el-alert
+              v-show="this.$store.state.alertMsgSpace"
+              title="Error alert"
+              type="error"
+              description="Enter task before click Add"
               show-icon
               center
             >

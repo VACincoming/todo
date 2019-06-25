@@ -4,7 +4,7 @@ import { eventBus } from "./eventbus";
 @Component
 export default class Add extends Vue {
   text = "";
-  activate = false;
+  activate = true;
   onAdd() {
     eventBus.$emit("on-add", this.text);
     this.text = "";
@@ -37,7 +37,7 @@ export default class Add extends Vue {
             v-model="text"
         /></el-col>
         <el-col :span="6"
-          ><el-button :disabled="!this.activate" v-on:click="onAdd"
+          ><el-button :disabled="this.$store.state.isInSearch" v-on:click="onAdd"
             >Add</el-button
           ></el-col
         >
