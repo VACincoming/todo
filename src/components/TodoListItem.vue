@@ -1,6 +1,6 @@
 <script>
-import { Vue, Component } from 'vue-property-decorator'
-import { eventBus } from './eventbus.js'
+import { Vue, Component } from "vue-property-decorator";
+import { eventBus } from "./eventbus.js";
 @Component
 export default class TodoListItem extends Vue {}
 </script>

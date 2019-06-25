@@ -1,14 +1,14 @@
 <script>
-import { Vue, Component } from 'vue-property-decorator'
-import { eventBus } from '../components/eventbus'
+import { Vue, Component } from "vue-property-decorator";
+import { eventBus } from "../../components/eventbus";
 @Component
 export default class ProgressBar extends Vue {
   onProgress(elems) {
     const completed = elems.filter(elem => {
-      return elem.done
-    })
-    if (elems.length === 0) return 0
-    return Math.floor((completed.length / elems.length) * 100)
+      return elem.done;
+    });
+    if (elems.length === 0) return 0;
+    return Math.floor((completed.length / elems.length) * 100);
   }
 }
 </script>
@@ -29,5 +29,4 @@ export default class ProgressBar extends Vue {
     <!-- <router-view /> -->
   </div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>

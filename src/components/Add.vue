@@ -1,22 +1,22 @@
 <script>
-import { Vue, Component } from 'vue-property-decorator'
-import { eventBus } from './eventbus'
+import { Vue, Component } from "vue-property-decorator";
+import { eventBus } from "./eventbus";
 @Component
 export default class Add extends Vue {
-  text = ''
-  activate = false
+  text = "";
+  activate = false;
   onAdd() {
-    eventBus.$emit('on-add', this.text)
-    this.text = ''
+    eventBus.$emit("on-add", this.text);
+    this.text = "";
   }
 
   updated() {
     // console.log('activate');
     // (this.text && this.$store.state.isInSearch) ? this.activate = false : this.activate = true ;
     if (!!this.text && !this.$store.state.isInSearch) {
-      this.activate = true
+      this.activate = true;
     } else {
-      this.activate = false
+      this.activate = false;
     }
   }
 }

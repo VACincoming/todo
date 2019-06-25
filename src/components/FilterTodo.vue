@@ -1,16 +1,17 @@
 <script>
-import { Vue, Component } from 'vue-property-decorator'
-import { eventBus } from './eventbus'
+import { Vue, Component } from "vue-property-decorator";
+import { eventBus } from "./eventbus";
 @Component
 export default class Reverse extends Vue {
-  searchText = ''
+  searchText = "";
   onReverse() {
     // console.log('filter');
-    this.$store.dispatch('ReverseList', this.$store.state)
+    this.$store.dispatch("ReverseList", this.$store.state);
   }
   onSearch() {
-    eventBus.$emit('on-search', this.searchText)
+    eventBus.$emit("on-search", this.searchText);
     // alert('rev ' + this.searchText);
+    this.searchText = "";
   }
 }
 </script>

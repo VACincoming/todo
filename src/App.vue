@@ -1,8 +1,8 @@
 <script lang="ts">
 import VueRouter from "vue-router";
 import { Vue, Component } from "vue-property-decorator";
-import Todo from "./pages/Todo.vue";
-import "../src/assets/styles/main.css";
+import Todo from "./Router/pages/Todo.vue";
+import "./assets/styles/main.css";
 @Component({
   components: {
     Todo
@@ -14,7 +14,7 @@ export default class App extends Vue {}
 <template>
   <div id="app">
     <el-row type="flex" class="row-bg">
-      <el-col :xs="20" :md="10" :lg="4" :sm="24" class='menu-wrapper'>
+      <el-col :xs="20" :md="10" :lg="4" :sm="24" class="menu-wrapper">
         <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu index="1">
             <template slot="title">
@@ -51,7 +51,7 @@ export default class App extends Vue {}
         </el-menu>
       </el-col>
       <el-col class="purple">
-        <keep-alive><router-view></router-view></keep-alive>
+        <keep-alive><router-view class="view one"></router-view></keep-alive>
       </el-col>
     </el-row>
   </div>
