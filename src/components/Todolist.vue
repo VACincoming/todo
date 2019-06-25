@@ -27,7 +27,9 @@ export default class Todolist extends Vue {
       {
         confirmButtonText: "Edit",
         cancelButtonText: "Cancel"
-      },{passive:true})
+      },
+      { passive: true }
+    )
       .then(({ value }) => {
         const idx = this.$store.state.elems.findIndex(el => el.id === id);
         if (value.trim().length >= 2 && value.trim().length < 50) {
@@ -72,22 +74,22 @@ export default class Todolist extends Vue {
     this.$store.dispatch("InitList");
     this.$store.dispatch("InitList");
     eventBus.$on("on-add", text => {
-      if( text.trim().length < 1){
+      if (text.trim().length < 1) {
         this.$store.dispatch("AlertSpace", true);
         setTimeout(() => {
           this.$store.dispatch("AlertSpace", false);
         }, 2000);
         return;
-      } 
+      }
       if (this.$store.state.elems.some(x => x.label === text.trim())) {
-      this.$store.dispatch("Alert", true);
-       setTimeout(() => {
+        this.$store.dispatch("Alert", true);
+        setTimeout(() => {
           this.$store.dispatch("Alert", false);
         }, 2000);
-      return;
+        return;
       }
-    this.$store.dispatch("AddList", this.createList(text.trim()));
-    this.matches = false;
+      this.$store.dispatch("AddList", this.createList(text.trim()));
+      this.matches = false;
     });
     eventBus.$on("on-search", searchText => this.search(searchText));
   }

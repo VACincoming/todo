@@ -37,7 +37,9 @@ export default class Add extends Vue {
             v-model="text"
         /></el-col>
         <el-col :span="6"
-          ><el-button :disabled="this.$store.state.isInSearch" v-on:click="onAdd"
+          ><el-button
+            :disabled="this.$store.state.isInSearch"
+            v-on:click="onAdd"
             >Add</el-button
           ></el-col
         >

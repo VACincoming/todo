@@ -11,7 +11,7 @@ export default new Vuex.Store({
     matches: false,
     isInSearch: false,
     alertMsg: false,
-    alertMsgSpace: false,
+    alertMsgSpace: false
   },
   mutations: {
     setList(state, task) {
@@ -33,31 +33,31 @@ export default new Vuex.Store({
       state.elems = payload.key1;
       state.isInSearch = payload.key2;
     },
-    setNoMatches(state, flag:boolean) {
+    setNoMatches(state, flag: boolean) {
       state.matches = flag;
     },
     setEmptySearch(state, oldElems) {
       state.elems = oldElems;
     },
-    setInit(state, correctData:elems) {
+    setInit(state, correctData: elems) {
       state.elems.push(correctData);
       state.oldElems = state.elems;
     },
-    setAlert(state, flag:boolean) {
+    setAlert(state, flag: boolean) {
       state.alertMsg = flag;
     },
-    setAlertSpace(state, flag:boolean) {
+    setAlertSpace(state, flag: boolean) {
       state.alertMsgSpace = flag;
     }
   },
   actions: {
-    Alert({ commit }, flag:boolean) {
+    Alert({ commit }, flag: boolean) {
       commit("setAlert", flag);
     },
-    AlertSpace({ commit }, flag:boolean) {
+    AlertSpace({ commit }, flag: boolean) {
       commit("setAlertSpace", flag);
     },
-    noMatches({ commit }, flag:boolean) {
+    noMatches({ commit }, flag: boolean) {
       commit("setNoMatches", flag);
     },
     async InitList({ commit }) {
@@ -90,7 +90,7 @@ export default new Vuex.Store({
     Search({ commit }, payload) {
       commit("setSearch", payload);
     },
-    EmptySearch({ commit }, oldElems:elems) {
+    EmptySearch({ commit }, oldElems: elems) {
       commit("setEmptySearch", oldElems);
     }
   },
