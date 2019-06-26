@@ -1,21 +1,18 @@
-import { State } from './types'
+import { TodoState } from './types'
 import { GetterTree, MutationTree, ActionTree } from 'vuex'
 import elems from './types'
+import isInSearch from './types'
+// import OtherTodo from './otherTodo'
 
-export const state: State = {
-    id: 0,
+export const state: TodoState = {
     elems: Array<elems>(),
     oldElems: Array<elems>(),
-    matches: false,
-    isInSearch: false,
-    alertMsg: false,
-    alertMsgSpace: false
 }
 
-export const getters: GetterTree<State, any> = {
+export const getters: GetterTree<TodoState, any> = {
     elems: state => state.elems
 }
-export const mutations: MutationTree<State> = {
+export const mutations: MutationTree<TodoState> = {
     setList(state, task) {
         state.elems.push(task);
         state.oldElems = state.elems;
@@ -35,9 +32,6 @@ export const mutations: MutationTree<State> = {
         state.elems = payload.key1;
         state.isInSearch = payload.key2;
       },
-      setNoMatches(state, flag: boolean) {
-        state.matches = flag;
-      },
       setEmptySearch(state, oldElems) {
         state.elems = oldElems;
       },
@@ -45,24 +39,9 @@ export const mutations: MutationTree<State> = {
         state.elems.push(correctData);
         state.oldElems = state.elems;
       },
-      setAlert(state, flag: boolean) {
-        state.alertMsg = flag;
-      },
-      setAlertSpace(state, flag: boolean) {
-        state.alertMsgSpace = flag;
-      }
 }
 
-export const actions: ActionTree<State, any> = {
-    Alert({ commit }, flag: boolean) {
-        commit("setAlert", flag);
-      },
-      AlertSpace({ commit }, flag: boolean) {
-        commit("setAlertSpace", flag);
-      },
-      noMatches({ commit }, flag: boolean) {
-        commit("setNoMatches", flag);
-      },
+export const actions: ActionTree<TodoState, any> = {
       async InitList({ commit }) {
         const data = await fetch(
           "https://jsonplaceholder.typicode.com/todos/" + ++this.state.id
@@ -96,4 +75,11 @@ export const actions: ActionTree<State, any> = {
       EmptySearch({ commit }, oldElems: elems) {
         commit("setEmptySearch", oldElems);
       }
+}
+
+export const todos = {
+    state,
+    getters,
+    actions,
+    mutations
 }

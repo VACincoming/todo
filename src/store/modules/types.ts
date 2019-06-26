@@ -1,7 +1,6 @@
 export interface TodoState {
   elems: Elems[],
   oldElems: Elems[],
-  isInSearch: false,
 }
 
 export interface OtherTodoState {
