@@ -20,14 +20,14 @@ export default class Reverse extends Vue {
   <div class="reverse-wrapper">
     <el-form id="form">
       <el-row :gutter="1">
-        <el-col :span="6.5"
-          ><el-button v-on:click="onReverse"
+        <el-col :span="3.5"
+          ><el-button id="reverseButtonId" v-on:click="onReverse"
             >Reverse<i class="el-icon-sort"
           /></el-button>
         </el-col>
-        <el-col :span="11"><el-input type="text" v-model="searchText"/></el-col>
+        <el-col :span="9"><el-input id="searchInputId" type="text" v-model="searchText"/></el-col>
         <el-col :span="4"
-          ><el-button icon="el-icon-search" v-on:click="onSearch"
+          ><el-button id="searchButtonId" icon="el-icon-search" v-on:click="onSearch"
             >Search</el-button
           ></el-col
         >

@@ -19,7 +19,7 @@ export default class Todo extends Vue {}
     <el-container>
       <el-main>
         <el-row type="flex" class="row-bg">
-          <el-col :offset="5" :xs="24" :md="17" :lg="10" :sm="20">
+          <el-col :offset="5" :xs="24" :sm="24" :md="24" :lg="15">
             <el-alert
               v-show="this.$store.state.otherTodo.alertMsg"
               title="Error alert"

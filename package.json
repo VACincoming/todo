@@ -5,12 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "cypress:open": "cypress open"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "animate.css": "^3.7.2",
     "core-js": "^2.6.5",
+    "cypress": "^3.3.1",
     "default-passive-events": "^1.0.10",
     "element-ui": "^2.9.1",
     "es6-promise": "^4.2.8",
@@ -33,7 +33,6 @@
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-typescript": "^4.0.0",
     "babel-eslint": "^10.0.1",
-    "cypress": "^2.0.3",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^5.1.0",
     "eslint-plugin-vue": "^5.0.0",

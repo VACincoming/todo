@@ -20,7 +20,7 @@ export default class ProgressBar extends Vue {
         <h3>ProgressBar</h3>
         <li class="li-progress">
           <el-progress
-            :percentage="onProgress(this.$store.state.elems)"
+            :percentage="onProgress(this.$store.state.todos.elems)"
             type="circle"
           ></el-progress>
         </li>

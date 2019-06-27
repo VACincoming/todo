@@ -1,9 +1,6 @@
 import Elems, { TodoState } from "./types";
 import { GetterTree, MutationTree, ActionTree } from "vuex";
 import elems from "./types";
-import { otherTodo } from "./otherTodo";
-import isInSearch from "./types";
-// import OtherTodo from './otherTodo'
 
 export const state: TodoState = {
   elems: Array<elems>(),
