@@ -8,10 +8,12 @@ import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 @Component
 export default class Todolist extends Vue {
   id = 0;
+  todoStore = this.$store.state.todos;
+  otherTodoStore = this.$store.state.otherTodo;
   matches = false;
   createList(label) {
     return {
-      id: ++this.$store.state.id,
+      id: ++this.otherTodoStore.id,
       label,
       done: false
     };
@@ -31,9 +33,9 @@ export default class Todolist extends Vue {
       { passive: true }
     )
       .then(({ value }) => {
-        const idx = this.$store.state.elems.findIndex(el => el.id === id);
+        const idx = this.todoStore.elems.findIndex(el => el.id === id);
         if (value.trim().length >= 2 && value.trim().length < 50) {
-          this.$store.state.elems[idx].label = value.trim();
+          this.todoStore.elems[idx].label = value.trim();
           this.$message({
             type: "success",
             message: "Your task is:" + value.trim()
@@ -55,15 +57,14 @@ export default class Todolist extends Vue {
   }
 
   search(searchText) {
-    const newElems = this.$store.state.oldElems.filter(elem => {
+    const newElems = this.todoStore.oldElems.filter(elem => {
       return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
     });
-
     if (newElems.length === 0) this.$store.dispatch("noMatches", true);
     else this.$store.dispatch("noMatches", false);
 
     if (searchText === "") {
-      const payload = { key1: this.$store.state.oldElems, key2: false };
+      const payload = { key1: this.todoStore.oldElems, key2: false };
       this.$store.dispatch("Search", payload);
     } else {
       const payload = { key1: newElems, key2: true };
@@ -81,7 +82,7 @@ export default class Todolist extends Vue {
         }, 2000);
         return;
       }
-      if (this.$store.state.elems.some(x => x.label === text.trim())) {
+      if (this.todoStore.elems.some(x => x.label === text.trim())) {
         this.$store.dispatch("Alert", true);
         setTimeout(() => {
           this.$store.dispatch("Alert", false);
@@ -98,12 +99,12 @@ export default class Todolist extends Vue {
 
 <template>
   <div>
-    <h4 v-show="this.$store.state.matches" class="animated rubberBand">
+    <h4 v-show="this.otherTodoStore.matches" class="animated rubberBand">
       No matches
     </h4>
     <transition-group name="list" tag="ul">
       <li
-        v-for="elem in this.$store.state.elems"
+        v-for="elem in this.todoStore.elems"
         v-bind:key="elem.id"
         class="list-item"
       >

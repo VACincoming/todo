@@ -21,7 +21,7 @@ export default class Todo extends Vue {}
         <el-row type="flex" class="row-bg">
           <el-col :offset="5" :xs="24" :md="17" :lg="10" :sm="20">
             <el-alert
-              v-show="this.$store.state.alertMsg"
+              v-show="this.$store.state.otherTodo.alertMsg"
               title="Error alert"
               type="error"
               description="This ToDo item has already exists in your list"
@@ -30,7 +30,7 @@ export default class Todo extends Vue {}
             >
             </el-alert>
             <el-alert
-              v-show="this.$store.state.alertMsgSpace"
+              v-show="this.$store.state.otherTodo.alertMsgSpace"
               title="Error alert"
               type="error"
               description="Enter task before click Add"

@@ -6,7 +6,7 @@ export default class Reverse extends Vue {
   searchText = "";
   onReverse() {
     // console.log('filter');
-    this.$store.dispatch("ReverseList", this.$store.state);
+    this.$store.dispatch("ReverseList", this.$store.state.todos);
   }
   onSearch() {
     eventBus.$emit("on-search", this.searchText);

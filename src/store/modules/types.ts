@@ -1,14 +1,16 @@
 export interface TodoState {
-  elems: Elems[],
-  oldElems: Elems[],
+  elems: Elems[];
+  oldElems: Elems[];
 }
 
 export interface OtherTodoState {
-  id: number,
-  matches: boolean,
-  isInSearch: boolean,
-  alertMsg: boolean,
-  alertMsgSpace: boolean
+  id: number;
+  matches: boolean;
+  alertMsg: boolean;
+  alertMsgSpace: boolean;
+}
+export interface State {
+  isInSearch: boolean;
 }
 
 export default class Elems {
