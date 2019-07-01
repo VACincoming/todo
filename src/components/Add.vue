@@ -37,7 +37,7 @@ export default class Add extends Vue {
             :disabled="this.$store.state.isInSearch"
             type="text"
             v-model="text"
-            
+            v-on:keypress.enter="onAdd"
         /></el-col>
         <el-col :span="10"
           ><el-button
