@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { eventBus } from "./eventbus";
 @Component
 export default class Add extends Vue {
-  text = "";
-  activate = true;
+  text:string = "";
+  activate:boolean = true;
   onAdd() {
     eventBus.$emit("on-add", this.text);
     this.text = "";

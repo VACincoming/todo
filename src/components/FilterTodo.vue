@@ -1,16 +1,26 @@
-<script>
+<script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { eventBus } from "./eventbus";
+import { namespace } from "vuex-class";
+import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
+import { State, Action } from 'vuex-class';
+import store from '@/store/index'
+import { TodoState, OtherTodoState} from '../store/modules/types';
+
+const Todos = namespace("Todos");
+const OtherTodo = namespace('OtherTodo');
+
 @Component
 export default class Reverse extends Vue {
+
+  @Todos.Action ReverseList:any;
+  @Todos.State elems:any;
   searchText = "";
   onReverse() {
-    // console.log('filter');
-    this.$store.dispatch("ReverseList", this.$store.state.todos);
+    this.ReverseList(this.elems);
   }
   onSearch() {
     eventBus.$emit("on-search", this.searchText);
-    // alert('rev ' + this.searchText);
     this.searchText = "";
   }
 }

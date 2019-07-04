@@ -20,7 +20,7 @@ export default class Todo extends Vue {}
       <el-main>
         <el-row type="flex" class="row-bg">
           <el-col :offset="5" :xs="24" :sm="24" :md="24" :lg="15">
-            <el-alert
+            <!-- <el-alert
               v-show="this.$store.state.otherTodo.alertMsg"
               title="Error alert"
               type="error"
@@ -37,7 +37,7 @@ export default class Todo extends Vue {}
               show-icon
               center
             >
-            </el-alert>
+            </el-alert> -->
             <h1>My ToDo List</h1>
             <Add />
             <FilterTodo />

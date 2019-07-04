@@ -39,9 +39,6 @@ h4{
 ul{
   padding: 0;
 }
-.el-button-group{
-  display: flex;
-}
 li{
   text-decoration: none;
   list-style: none;

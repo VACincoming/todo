@@ -1,32 +1,49 @@
-<script>
+<script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { eventBus } from "./eventbus.js";
+import { eventBus } from "./eventbus";
 import "../assets/styles/main.css";
 import { namespace } from "vuex-class";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 import { State, Action } from 'vuex-class';
-import { TodoState, OtherTodoState } from '../store/modules/types';
-// const namespace: string = 'Todolist';
+import store from '@/store/index'
+import { TodoState, OtherTodoState} from '../store/modules/types';
+// import { otherTodo } from '../store/modules/otherTodo';
+
+const Todos = namespace("Todos");
+const OtherTodo = namespace('OtherTodo');
+
 @Component
 export default class Todolist extends Vue {
-  // @State('todo') todo: TodoState;
+  id = 2;
+  @Todos.State elems: any;
+  @Todos.State oldElems: any;
+  @Todos.Action InitList:any;
+  @Todos.Action AddList:any;
 
-  id = 0;
-  todoStore = this.$store.state.todos;
-  otherTodoStore = this.$store.state.otherTodo;
-  matches = false;
-  createList(label) {
+  @Todos.Action EmptySearch:any;
+
+  // @OtherTodo.State id:any;
+  @OtherTodo.State matches:any;
+  @OtherTodo.State isInSearch:any;
+
+  @OtherTodo.Action Alert:any;
+  @OtherTodo.Action AlertSpace:any;
+  @OtherTodo.Action noMatches:any;
+  @OtherTodo.Action DeleteItem:any;
+  @OtherTodo.Action Search:any;
+
+  createList(label:string) {
     return {
-      id: ++this.otherTodoStore.id,
+      id: ++this.id,
       label,
       done: false
     };
   }
 
-  onDeletedItem(id) {
-    this.$store.dispatch("DeleteItem", id);
+  onDeletedItem(id:number) {
+    this.DeleteItem(id);
   }
-  onEditItem(id) {
+  onEditItem(id:number) {
     this.$prompt(
       "Please input your correct task",
       "Editor",
@@ -34,12 +51,13 @@ export default class Todolist extends Vue {
         confirmButtonText: "Edit",
         cancelButtonText: "Cancel"
       },
-      { passive: true }
+      // { passive: true }
     )
-      .then(({ value }) => {
-        const idx = this.todoStore.elems.findIndex(el => el.id === id);
+      .then((value:any) => {
+        console.log(id);
+        const idx = this.elems.findIndex((el: any) => el.id === id);
         if (value.trim().length >= 2 && value.trim().length < 50) {
-          this.todoStore.elems[idx].label = value.trim();
+          this.elems[idx].label = value.trim();
           this.$message({
             type: "success",
             message: "Your task is:" + value.trim()
@@ -60,55 +78,61 @@ export default class Todolist extends Vue {
       });
   }
 
-  search(searchText) {
-    const newElems = this.todoStore.oldElems.filter(elem => {
+  search(searchText:string) {
+    const newElems = this.oldElems.filter((elem:any) => {
       return elem.label.toUpperCase().indexOf(searchText.toUpperCase()) > -1;
     });
-    if (newElems.length === 0) this.$store.dispatch("noMatches", true);
-    else this.$store.dispatch("noMatches", false);
+    if (newElems.length === 0) this.noMatches(true);
+    else this.noMatches(false);
 
     if (searchText === "") {
-      const payload = { key1: this.todoStore.oldElems, key2: false };
-      this.$store.dispatch("Search", payload);
+      const payload = { key1: this.oldElems, key2: false };
+      this.Search(payload);
     } else {
       const payload = { key1: newElems, key2: true };
-      this.$store.dispatch("Search", payload);
+      this.Search(payload);
     }
   }
   mounted() {
-    this.$store.dispatch("InitList");
-    this.$store.dispatch("InitList");
-    eventBus.$on("on-add", text => {
+    this.InitList();
+    this.InitList();
+    eventBus.$on("on-add", (text:string) => {
       if (text.trim().length < 1) {
-        this.$store.dispatch("AlertSpace", true);
+        this.AlertSpace(true);
         setTimeout(() => {
-          this.$store.dispatch("AlertSpace", false);
+          this.AlertSpace(false);
         }, 2000);
         return;
       }
-      if (this.todoStore.elems.some(x => x.label === text.trim())) {
-        this.$store.dispatch("Alert", true);
+      if (this.elems.some((x:any)=> x.label === text.trim())) {
+        this.Alert(true);
         setTimeout(() => {
-          this.$store.dispatch("Alert", false);
+          this.Alert(false);
         }, 2000);
         return;
       }
-      this.$store.dispatch("AddList", this.createList(text.trim()));
-      this.matches = false;
+      const task = this.createList(text.trim());
+      this.AddList(task);
+      this.noMatches(false);
     });
-    eventBus.$on("on-search", searchText => this.search(searchText));
+    eventBus.$on("on-search", (searchText:string) => this.search(searchText));
   }
 }
 </script>
 
 <template>
   <div>
-    <h4 v-show="this.otherTodoStore.matches" class="animated rubberBand">
+    <!-- <p>11 -   {{todos}}</p>
+    <p>2 -   {{this.$store.OtherTodoState}}</p>
+    <p>3 -   {{this.$store.otherTodo}}</p> -->
+
+
+    <h4 v-show="this.matches" class="animated rubberBand">
       No matches
-    </h4>
+    </h4> 
     <transition-group name="list" tag="ul">
       <li
-        v-for="elem in this.todoStore.elems"
+        v-for="elem in this.elems"
         v-bind:key="elem.id"
         class="list-item"
       >
