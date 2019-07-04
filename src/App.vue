@@ -4,7 +4,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Todo from "./Router/pages/Todo.vue";
 import "./assets/styles/main.css";
 import { Getter, Mutation, Action, State } from "vuex-class";
-import store from "./store/store";
+import store from "./store/index";
 import { OtherTodoState, TodoState } from "./store/modules/types";
 @Component({
   components: {

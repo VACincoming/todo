@@ -4,9 +4,13 @@ import { eventBus } from "./eventbus.js";
 import "../assets/styles/main.css";
 import { namespace } from "vuex-class";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-
+import { State, Action } from 'vuex-class';
+import { TodoState, OtherTodoState } from '../store/modules/types';
+// const namespace: string = 'Todolist';
 @Component
 export default class Todolist extends Vue {
+  // @State('todo') todo: TodoState;
+
   id = 0;
   todoStore = this.$store.state.todos;
   otherTodoStore = this.$store.state.otherTodo;
