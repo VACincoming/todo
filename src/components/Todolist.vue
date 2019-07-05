@@ -38,17 +38,16 @@ export default class Todolist extends Vue {
       done: false
     };
   }
-
   onDeletedItem(id: number) {
     this.DeleteItem(id);
   }
   onEditItem(id: number) {
     this.$prompt(
-      "Please input your correct task",
-      "Editor",
+      this.$t("EditorDescription").toString(),
+      this.$t("EditorTitle").toString(),
       {
-        confirmButtonText: "Edit",
-        cancelButtonText: "Cancel"
+        confirmButtonText: this.$t("Edit").toString(),
+        cancelButtonText: this.$t("Cancel").toString()
       }
       // { passive: true }
     )
@@ -59,20 +58,20 @@ export default class Todolist extends Vue {
           this.elems[idx].label = value.trim();
           this.$message({
             type: "success",
-            message: "Your task is:" + value.trim()
+            message: this.$t("EditSuccess").toString() + value.trim()
           });
         } else {
           this.$message({
             type: "info",
             message:
-              "Input canceled, value length < 2 or > 50 and no space and start line"
+             this.$t("EditElseMessage").toString()
           });
         }
       })
       .catch(() => {
         this.$message({
           type: "info",
-          message: "Input canceled"
+          message: this.$t("EditCatchMessage").toString()
         });
       });
   }

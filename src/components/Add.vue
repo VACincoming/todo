@@ -50,7 +50,7 @@ export default class Add extends Vue {
             id="addButton"
             :disabled="this.isInSearch"
             v-on:click="onAdd"
-            >Add</el-button
+            >{{$t('Actions.ButtonAdd')}}</el-button
           ></el-col
         >
       </el-row>

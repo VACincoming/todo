@@ -1,0 +1,22 @@
+{
+  "Title": "My ToDo List",
+  "Actions":{
+    "ButtonAdd": "Add",
+    "ButtonSearch": "Search",
+    "ButtonReverse": "Reverse"
+  },
+  "EditorTitle": "Editor",
+  "EditorDescription": "Please input your correct task",
+  "Edit": "Edit",
+  "Cancel": "Cancel",
+  "EditElseMessage": "Input canceled, value length < 2 or > 50 and no space and start line",
+  "EditCatchMessage": "Input canceled",
+  "EditSuccess": "Your task is:",
+  "BetweenTodo": "Navigate between ToDo",
+  "Yesterday": "Todos on Yesterday",
+  "Today": "Todos on Today",
+  "Tomorrow": "Todos on Tomorrow",
+  "ProgressBar": "Navigate to Progress Bar",
+  "Home": "Navigate to Home",
+  "Language": "Choose Language"
+}

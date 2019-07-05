@@ -1,0 +1,22 @@
+{
+  "Title": "Мой список дел",
+  "Actions":{
+    "ButtonAdd": "Добавить",
+    "ButtonSearch": "Поиск",
+    "ButtonReverse": "Перевернуть"
+  },
+  "EditorTitle": "Editor",
+  "EditorDescription": "Введите корректный запрос",
+  "Edit": "Редактировать",
+  "Cancel": "Отменить",
+  "EditElseMessage": "Ввод отменён, длина ввода < 2 или > 50",
+  "EditCatchMessage": "Ввод отменён",
+  "EditSuccess": "Ваша задача:",
+  "BetweenTodo": "Просмотреть списки дел",
+  "Yesterday": "Список дел на вчера",
+  "Today": "Список дел на сегодня",
+  "Tomorrow": "Список дел на завтра",
+  "ProgressBar": "Посмотреть прогресс",
+  "Home": "Главная",
+  "Language":  "Выбрать язык"
+}

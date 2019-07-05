@@ -82,3 +82,14 @@ li{
 .el-main{
   padding-top:0;
 }
+
+.el-dropdown {
+  margin-left: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #409EFF;
+  font-size: 16px;
+}
+.el-icon-arrow-down {
+  /* font-size: 12px; */
+}
