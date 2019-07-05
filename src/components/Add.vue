@@ -1,16 +1,22 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { eventBus } from "./eventbus";
+import { namespace } from "vuex-class";
+import { TodoState, OtherTodoState } from "../store/modules/types";
+
+const OtherTodo = namespace("OtherTodo");
+
 @Component
 export default class Add extends Vue {
-  text:string = "";
-  activate:boolean = true;
+  @OtherTodo.State isInSearch: any;
+  text: string = "";
+  activate: boolean = true;
   onAdd() {
     eventBus.$emit("on-add", this.text);
     this.text = "";
   }
   isInSearchFlag() {
-    return !!this.text && !this.$store.state.isInSearch;
+    return !!this.text && !this.isInSearch;
   }
   updated() {
     if (this.isInSearchFlag) {
@@ -26,7 +32,7 @@ export default class Add extends Vue {
   <div class="add-wrapper">
     <el-form id="form">
       <el-row :gutter="1">
-        <p v-show="this.$store.state.isInSearch">
+        <p v-show="this.isInSearch">
           Что бы добавить Task, выйдите с режима поиска
         </p>
         <el-col :xs="12" :md="12" :lg="12" :sm="12"
@@ -34,7 +40,7 @@ export default class Add extends Vue {
             class="addInput"
             autofocus="true"
             id="addInput"
-            :disabled="this.$store.state.isInSearch"
+            :disabled="this.isInSearch"
             type="text"
             v-model="text"
             v-on:keypress.enter="onAdd"
@@ -42,7 +48,7 @@ export default class Add extends Vue {
         <el-col :span="10"
           ><el-button
             id="addButton"
-            :disabled="this.$store.state.isInSearch"
+            :disabled="this.isInSearch"
             v-on:click="onAdd"
             >Add</el-button
           ></el-col

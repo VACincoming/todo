@@ -1,9 +1,9 @@
-import { Module } from 'vuex';
-import { TodoState } from './types';
-import { RootState } from './types';
-import { ActionTree, MutationTree } from 'vuex';
+import { Module } from "vuex";
+import { TodoState } from "./types";
+import { RootState } from "./types";
+import { ActionTree, MutationTree } from "vuex";
 import elems from "./types";
-import OtherTodo from './OtherTodo';
+import OtherTodo from "./OtherTodo";
 
 const state: TodoState = {
   elems: Array<elems>(),
@@ -16,7 +16,7 @@ const actions: ActionTree<TodoState, RootState> = {
   async InitList({ commit }, rootState) {
     const data = await fetch(
       "https://jsonplaceholder.typicode.com/todos/" + ++OtherTodo.state.id
-    ).then(response => response.json())
+    ).then(response => response.json());
     const correctData = {
       id: data.id,
       label: data.title,
@@ -56,11 +56,10 @@ const mutations: MutationTree<TodoState> = {
 };
 
 export default {
-  namespaced:true,
+  namespaced: true,
   state,
   actions,
   mutations
 };
 
 // const namespaced: boolean = true;
-

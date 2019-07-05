@@ -28,9 +28,7 @@ describe("Knowledge Base Application", () => {
       .contains("Todos on today")
       .click();
 
-    cy.get(".el-icon-edit")
-      .first()
-      .click();
+    cy.get(".el-icon-edit").click();
     cy.get(".el-button")
       .contains("Edit")
       .click();

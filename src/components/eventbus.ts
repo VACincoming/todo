@@ -1,2 +1,2 @@
 import Vue from "vue";
-export const eventBus:any = new Vue();
+export const eventBus: any = new Vue();

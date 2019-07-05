@@ -19,7 +19,14 @@ export default class App extends Vue {
 <template>
   <div id="app">
     <el-row type="flex" class="row-bg">
-      <el-col :xs="20" :md="10" :lg="4" :sm="24" id="menu-wrapper" class="menu-wrapper">
+      <el-col
+        :xs="20"
+        :md="10"
+        :lg="4"
+        :sm="24"
+        id="menu-wrapper"
+        class="menu-wrapper"
+      >
         <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu class="el__submenu" index="1">
             <template slot="title">

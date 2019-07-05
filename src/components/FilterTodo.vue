@@ -3,18 +3,17 @@ import { Vue, Component } from "vue-property-decorator";
 import { eventBus } from "./eventbus";
 import { namespace } from "vuex-class";
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-import { State, Action } from 'vuex-class';
-import store from '@/store/index'
-import { TodoState, OtherTodoState} from '../store/modules/types';
+import { State, Action } from "vuex-class";
+import store from "@/store/index";
+import { TodoState, OtherTodoState } from "../store/modules/types";
 
 const Todos = namespace("Todos");
-const OtherTodo = namespace('OtherTodo');
+const OtherTodo = namespace("OtherTodo");
 
 @Component
 export default class Reverse extends Vue {
-
-  @Todos.Action ReverseList:any;
-  @Todos.State elems:any;
+  @Todos.Action ReverseList: any;
+  @Todos.State elems: any;
   searchText = "";
   onReverse() {
     this.ReverseList(this.elems);
@@ -35,9 +34,14 @@ export default class Reverse extends Vue {
             >Reverse<i class="el-icon-sort"
           /></el-button>
         </el-col>
-        <el-col :span="9"><el-input id="searchInputId" type="text" v-model="searchText"/></el-col>
+        <el-col :span="9"
+          ><el-input id="searchInputId" type="text" v-model="searchText"
+        /></el-col>
         <el-col :span="4"
-          ><el-button id="searchButtonId" icon="el-icon-search" v-on:click="onSearch"
+          ><el-button
+            id="searchButtonId"
+            icon="el-icon-search"
+            v-on:click="onSearch"
             >Search</el-button
           ></el-col
         >
