@@ -9,6 +9,7 @@ import { TodoState, OtherTodoState } from "@/store/modules/types";
 const OtherTodo = namespace("OtherTodo");
 
 import "@/assets/styles/main.css";
+import { Option } from 'element-ui';
 @Component({
   components: {
     Add,
@@ -19,6 +20,7 @@ import "@/assets/styles/main.css";
 export default class Todo extends Vue {
   @OtherTodo.State alertMsg: any;
   @OtherTodo.State alertMsgSpace: any;
+
 }
 </script>
 
@@ -28,6 +30,17 @@ export default class Todo extends Vue {
       <el-main>
         <el-row type="flex" class="row-bg">
           <el-col :offset="5" :xs="24" :sm="24" :md="24" :lg="15">
+            <!-- <el-select v-model="value" @change='setLocale($event)' placeholder="Select">
+              <el-option
+                v-for="item in this.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select> -->
+            <!-- <a href="#" @click="setLocale('en')">ENG</a>
+            <br>
+            <a href="#" @click="setLocale('ru')">RUS</a> -->
             <el-alert
               v-show="this.alertMsg"
               title="Error alert"
@@ -46,7 +59,7 @@ export default class Todo extends Vue {
               center
             >
             </el-alert>
-            <h1>My ToDo List</h1>
+            <h1>{{$t('Title')}}</h1>
             <Add />
             <FilterTodo />
             <todolist />
