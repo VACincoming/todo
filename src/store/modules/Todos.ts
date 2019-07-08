@@ -13,7 +13,7 @@ const state: TodoState = {
 // const namespaced: boolean = true;
 
 const actions: ActionTree<TodoState, RootState> = {
-  async InitList({ commit }, rootState) {
+  async InitList({ commit }) {
     const data = await fetch(
       "https://jsonplaceholder.typicode.com/todos/" + ++OtherTodo.state.id
     ).then(response => response.json());

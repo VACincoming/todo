@@ -1,13 +1,52 @@
-import { shallowMount, mount } from "@vue/test-utils";
-import Todo from "@/Router/pages/Todo.vue";
-import Add from "@/components/Add.vue";
-import ProgressBar from "@/Router/pages/ProgressBar.vue";
-import NextDayTodo from "@/Router/pages/NextDayTodo.vue";
-import App from "@/App.vue"
+import mutations from '@/store/modules/Todos'
 
-describe("Todo.vue", () => {
-  it("test", () => {
-    // const wrapper = shallowMount(App);
-    // expect(wrapper.find(Add).exists()).toBe(true);
+describe("Testing mutations from Todos store", () => {
+  it('setList updates state with items in payload', () => { 
+    const state = {
+      elems:[],
+      oldElems:[]
+  }
+  const elems = [{}, {}]
+  mutations.mutations.setList(state,{id:1, label:'something',done:false});
+  expect(state.elems).toEqual([{id:1, label:'something',done:false}]);
   });
+
+  it('setReverseList updates state with items in payload', () => { 
+    const state = {
+      elems:[],
+      oldElems:[]
+  }
+  const elems = [{}, {}]
+  mutations.mutations.setReverseList(state,[
+    {id:2, label:'something2',done:true},
+    {id:1, label:'something',done:false}
+  ]);
+  expect(state.elems).toEqual([
+    {id:2, label:'something2',done:true},
+    {id:1, label:'something',done:false}
+  ]);
+  });
+
+  it('setEmptySearch updates state with items in payload', () => { 
+    const state = {
+      elems:[],
+      oldElems:[]
+  }
+  const elems = [{}, {}]
+  mutations.mutations.setEmptySearch(state, state.oldElems);
+  expect(state.elems).toEqual(state.oldElems);
+  });
+
+
+  it('setInit updates state with items in payload', () => { 
+    const state = {
+      elems:[],
+      oldElems:[]
+  }
+  const elems = [{}, {}]
+  mutations.mutations.setInit(state, {id:1, label:'something',done:false});
+  expect(state.elems).toEqual({id:1, label:'something',done:false});
+  });
+
+
 });
