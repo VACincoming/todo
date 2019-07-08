@@ -18,5 +18,8 @@
   "Tomorrow": "Todos on Tomorrow",
   "ProgressBar": "Navigate to Progress Bar",
   "Home": "Navigate to Home",
-  "Language": "Choose Language"
+  "Language": "Choose Language",
+  "AlertTitle": "Error alert",
+  "AlertMsg": "Enter task before click Add",
+  "AlertSpaceMsg": "This ToDo item has already exists in your list"
 }
