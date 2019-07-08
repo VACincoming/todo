@@ -1,13 +1,24 @@
 import { Vue, Component } from "vue-property-decorator";
-import Vuex from "vuex";
-import {todos} from "./modules/todos";
-import { otherTodo } from "./modules/otherTodo";
-import Elems, { TodoState } from "./modules/types";
+import Vuex, { StoreOptions } from "vuex";
+import Todos from "./modules/Todos";
+import OtherTodo from "./modules/OtherTodo";
+import { RootState } from "./modules/types";
+// import VuexPersist from 'vuex-persist'
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+// const vuexPersist = new VuexPersist({
+//   key: 'my-app',
+//   storage: localStorage
+// })
+const store = {
+  state: {
+    version: "1.0.0"
+  },
   modules: {
-    todos,
-    otherTodo
-  }
-});
+    Todos,
+    OtherTodo
+  },
+  // plugins: [vuexPersist.plugin]
+};
+
+export default new Vuex.Store<RootState>(store);

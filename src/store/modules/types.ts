@@ -14,9 +14,6 @@ export interface OtherTodoState {
   alertMsgSpace: boolean;
   isInSearch: boolean;
 }
-export interface State {
-  isInSearch: boolean;
-}
 
 export default class Elems {
   id: number;

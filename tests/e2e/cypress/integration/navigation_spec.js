@@ -4,6 +4,8 @@ describe("Do navigation", () => {
     //   cy.visit("/todo");
     // });
     cy.visit("/todo");
-    cy.get(".el-menu__item").contains("Navigate to progressBar").click();
-  })
-})
+    cy.get(".el-menu__item")
+      .contains("Navigate to progressBar")
+      .click();
+  });
+});
