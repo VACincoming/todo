@@ -43,9 +43,9 @@ export default class Todo extends Vue {
             <a href="#" @click="setLocale('ru')">RUS</a> -->
             <el-alert
               v-show="this.alertMsg"
-              title="Error alert"
+              :title="$t('AlertTitle')"
               type="error"
-              description="This ToDo item has already exists in your list"
+              :description="$t('AlertSpaceMsg')"
               show-icon
               center
             >
@@ -54,7 +54,7 @@ export default class Todo extends Vue {
               v-show="this.alertMsgSpace"
               title="Error alert"
               type="error"
-              description="Enter task before click Add"
+              :description="$t('AlertMsg')"
               show-icon
               center
             >

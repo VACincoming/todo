@@ -3,10 +3,11 @@ import Todo from "@/Router/pages/Todo.vue";
 import Add from "@/components/Add.vue";
 import ProgressBar from "@/Router/pages/ProgressBar.vue";
 import NextDayTodo from "@/Router/pages/NextDayTodo.vue";
+import App from "@/App.vue"
 
 describe("Todo.vue", () => {
   it("test", () => {
-    const wrapper = shallowMount(Add);
+    // const wrapper = shallowMount(App);
     // expect(wrapper.find(Add).exists()).toBe(true);
   });
 });

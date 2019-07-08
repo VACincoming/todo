@@ -13,9 +13,14 @@ import VueI18n from 'vue-i18n'
   }
 })
 export default class App extends Vue {
+    model:string = 'en';
     setLocale(locale:string){
+    this.model = locale
     this.$i18n.locale = locale;
+    
+    console.log(this.model)
   }
+
 }
 </script>
 
@@ -30,23 +35,14 @@ export default class App extends Vue {
         id="menu-wrapper"
         class="menu-wrapper"
       >
-      <!-- <el-form>
-        <el-form-item label="Language">
-          <el-select>
-            <el-option @click="setLocale('en')" label="English" value="English"></el-option>
-            <el-option @click="setLocale('ru')" label="Русский" value="Русский"></el-option>
+      <el-form>
+        <el-form-item :label='$t("Language")'>
+          <el-select :v-model=this.model  :value=this.$i18n.locale :placeholder=this.$i18n.locale>
+            <el-option @click.native="setLocale('en')" value="English"></el-option>
+            <el-option @click.native="setLocale('ru')" value="Russian"></el-option>
           </el-select>
         </el-form-item>
-      </el-form> -->
-      <el-dropdown>
-      <span class="el-dropdown-link">
-        {{$t("Language")}}<i class="el-icon-arrow-down el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-       <a href="#" @click="setLocale('en')"><el-dropdown-item>Eng</el-dropdown-item></a>
-        <a href="#" @click="setLocale('ru')"><el-dropdown-item>Rus</el-dropdown-item></a>
-      </el-dropdown-menu>
-    </el-dropdown>
+      </el-form>
         <el-menu default-active="2" class="el-menu-vertical-demo">
           <el-submenu class="el__submenu" index="1">
             <template slot="title">
