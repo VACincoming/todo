@@ -45,7 +45,7 @@ describe("Testing mutations from Todos store", () => {
   }
   const elems = [{}, {}]
   mutations.mutations.setInit(state, {id:1, label:'something',done:false});
-  expect(state.elems).toEqual({id:1, label:'something',done:false});
+  expect(state.elems).toEqual([{id:1, label:'something',done:false}]);
   });
 
 
