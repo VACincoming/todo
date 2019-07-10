@@ -2,7 +2,6 @@ import task from "../fixtures/models/task";
 describe("Knowledge Base Application", () => {
   it("Create a new task", () => {
     cy.visit("/todo");
-    // cy.focused().should("have.id", "addInput");
     cy.get('input[id="addInput"]')
       .type(task.text)
       .should("have.value", task.text);
@@ -16,7 +15,7 @@ describe("Knowledge Base Application", () => {
     cy.contains(task.text).click();
 
     cy.get(".el-menu__item")
-      .contains("Navigate to progressBar")
+      .contains("Navigate to Progress Bar")
       .click();
     cy.get(".el__submenu")
       .contains("Navigate between ToDo")
