@@ -2,7 +2,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { eventBus } from "./eventbus";
 import { namespace } from "vuex-class";
-import { TodoState, OtherTodoState } from "../store/modules/types";
+import { OtherTodoState } from "../store/modules/types";
 
 const OtherTodo = namespace("OtherTodo");
 
