@@ -12,7 +12,7 @@ describe('Navigation Toggler', () => {
   let wrapper:any;
   
   const strings: any = {
-    'Actions.ButtonAdd': 'translated button text',
+    'Actions.ButtonAdd': 'Add',
   }
 
   const $t = jest.fn((name) => strings[name])
@@ -35,6 +35,7 @@ describe('Navigation Toggler', () => {
       attachToDocument: false,
       store,
       localVue,
+      
       mocks:{
         $t,
       },
@@ -43,11 +44,20 @@ describe('Navigation Toggler', () => {
 
     wrapper = shallowMount(Add, options)
   })
+  
 
   describe('test something',() => {
-    it('should be true', () => {
-      console.log(wrapper.html())
-      expect(true).toBe(true)
+    it('Click on #addButton call onAdd', () => {
+      const stub = jest.fn(() => console.log('onAdd is called'));
+      wrapper.setMethods({ onAdd: stub });
+      const button = wrapper.find('#addButton');
+      button.vm.$emit('click')
+      expect(wrapper.vm.onAdd).toBeCalled();
+    }),
+    it('Button is present', () => {
+      const button = wrapper.find('#addButton');
+      expect(button.text()).toBe('Add');
     })
   })
+  
 });
