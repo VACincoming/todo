@@ -6,7 +6,6 @@ describe("Testing mutations from Todos store", () => {
       elems:[],
       oldElems:[]
   }
-  const elems = [{}, {}]
   mutations.mutations.setList(state,{id:1, label:'something',done:false});
   expect(state.elems).toEqual([{id:1, label:'something',done:false}]);
   });
@@ -16,7 +15,6 @@ describe("Testing mutations from Todos store", () => {
       elems:[],
       oldElems:[]
   }
-  const elems = [{}, {}]
   mutations.mutations.setReverseList(state,[
     {id:2, label:'something2',done:true},
     {id:1, label:'something',done:false}
@@ -32,7 +30,6 @@ describe("Testing mutations from Todos store", () => {
       elems:[],
       oldElems:[]
   }
-  const elems = [{}, {}]
   mutations.mutations.setEmptySearch(state, state.oldElems);
   expect(state.elems).toEqual(state.oldElems);
   });
@@ -43,7 +40,6 @@ describe("Testing mutations from Todos store", () => {
       elems:[],
       oldElems:[]
   }
-  const elems = [{}, {}]
   mutations.mutations.setInit(state, {id:1, label:'something',done:false});
   expect(state.elems).toEqual([{id:1, label:'something',done:false}]);
   });

@@ -28,6 +28,7 @@ const actions: ActionTree<TodoState, RootState> = {
     commit("setList", task);
   },
   ReverseList({ commit }, elems) {
+    console.log('Acr Rev')
     const reverseList = elems.reverse();
     commit("setReverseList", reverseList);
   },
