@@ -45,19 +45,22 @@ describe('Navigation Toggler', () => {
     wrapper = shallowMount(Add, options)
   })
   
-
-  describe('test something',() => {
-    it('Click on #addButton call onAdd', () => {
-      const stub = jest.fn(() => console.log('onAdd is called'));
-      wrapper.setMethods({ onAdd: stub });
-      const button = wrapper.find('#addButton');
-      button.vm.$emit('click')
-      expect(wrapper.vm.onAdd).toBeCalled();
+  describe('should text is empty',() => {
+    it('Call onAdd and text is blank', () => {
+      wrapper.vm.text = 'text123';
+      wrapper.vm.onAdd();
+      expect(wrapper.vm.text).toBe("");
     }),
-    it('Button is present', () => {
+    it('Button Add is present', () => {
       const button = wrapper.find('#addButton');
       expect(button.text()).toBe('Add');
+    }),
+    it('isInSearchFlag() return expected token', () => {
+      wrapper.vm.text = '';
+      // wrapper.vm.isInSearch = true;
+      expect(wrapper.vm.isInSearchFlag()).toBe(false);
+      wrapper.vm.text = '1111';
+      expect(wrapper.vm.isInSearchFlag()).toBe(true);
     })
   })
-  
 });

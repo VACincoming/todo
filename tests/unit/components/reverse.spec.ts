@@ -1,6 +1,8 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import Vuex, { mapActions } from 'vuex'
 import FilterTodo from '@/components/FilterTodo.vue'
+import actions from '@/store/modules/Todos'
+import Todos from '@/store/modules/Todos';
 
 describe('Navigation Toggler', () => {
   const localVue = createLocalVue();
@@ -26,8 +28,11 @@ describe('Navigation Toggler', () => {
         Todos: {
           namespaced: true,
           state: {
-            elems: [],
+            elems: [1,2,3],
           },
+          actions: {
+            ReverseList: jest.fn()
+          }
         },
       },
     })
@@ -48,11 +53,9 @@ describe('Navigation Toggler', () => {
 
   describe('test reverse',() => {
     it('Click on #reverseButtonId call onReverse', () => {
-      const stub = jest.fn(() => console.log('onReverse is called'));
-      wrapper.setMethods({ onReverse: stub });
-      const button = wrapper.find('#reverseButtonId ');
-      button.vm.$emit('click')
-      expect(wrapper.vm.onReverse).toBeCalled();
+      jest.spyOn(wrapper.vm, 'ReverseList')
+      wrapper.vm.onReverse();
+      expect(wrapper.vm.ReverseList).toHaveBeenCalled();
     }),
     it('Button Reverse is present', () => {
       const button = wrapper.find('#reverseButtonId ');
@@ -60,12 +63,10 @@ describe('Navigation Toggler', () => {
     })
   }),
   describe('test search', () => {
-    it('Click on #searchButtonId call onSearch', () => {
-      const stub = jest.fn(() => console.log('onSearch is called'));
-      wrapper.setMethods({ onSearch: stub });
-      const button = wrapper.find('#searchButtonId ');
-      button.vm.$emit('click')
-      expect(wrapper.vm.onSearch).toBeCalled();
+    it('should clear searchText', () => {
+      wrapper.vm.searchText = 'someTest';
+      wrapper.vm.onSearch();
+      expect(wrapper.vm.searchText).toBe('');
     }),
     it('Button Search is present', () => {
       const button = wrapper.find('#searchButtonId ');
@@ -73,4 +74,3 @@ describe('Navigation Toggler', () => {
     })
     })
   });
-
