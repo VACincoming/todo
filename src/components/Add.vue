@@ -4,6 +4,10 @@ import { eventBus } from "./eventbus";
 import { namespace } from "vuex-class";
 import { OtherTodoState } from "../store/modules/types";
 const OtherTodo = namespace("OtherTodo");
+import moment from "moment";
+
+// import "moment/locale/pt-br";
+
 
 @Component
 export default class Add extends Vue {
@@ -11,7 +15,7 @@ export default class Add extends Vue {
   text: string = "";
   activate: boolean = true;
   onAdd() {
-    eventBus.$emit("on-add", this.text);
+    eventBus.$emit("on-add", this.text, this.value1);
     this.text = "";
   }
   isInSearchFlag() {
@@ -24,54 +28,20 @@ export default class Add extends Vue {
       this.activate = false;
     }
   }
-  data() {
-    return {
-      pickerOptions: {
-        shortcuts: [
-          {
-            text: "Last week",
-            onClick(picker: any) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "Last month",
-            onClick(picker: any) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            }
-          },
-          {
-            text: "Last 3 months",
-            onClick(picker: any) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            }
-          }
-        ]
-      },
-      value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-      value2: ""
-    };
-  }
+
+  value1 =  [new Date(moment().add(3, 'hours').toString()), new Date(moment().add(1, 'days').add(3, 'hours').toString())]
+  value2 = ''
 }
 </script>
 
 <template>
   <div class="add-wrapper">
     <el-form id="form">
-      <el-row :gutter="1">
+      <el-row :gutter="1" justify="space-between">
         <p v-show="this.isInSearch">
           Что бы добавить Task, выйдите с режима поиска
         </p>
-        <el-col :xs="12" :md="12" :lg="12" :sm="12"
+        <el-col :xs="12" :md="8" :lg="7" :sm="12"
           ><el-input
             class="addInput"
             autofocus="true"
@@ -81,25 +51,25 @@ export default class Add extends Vue {
             v-model="text"
             v-on:keypress.enter="onAdd"
         /></el-col>
-        <el-col :span="10"
-          ><el-button
+        <el-col :xs="12" :md="9" :lg="8" :sm="12">
+          <div class="block">
+            <el-date-picker
+              v-model="value1"
+              type="daterange"
+              range-separator="To"
+              start-placeholder="Start date"
+              end-placeholder="End date">
+            </el-date-picker>
+          </div>
+        </el-col>
+        <el-col :lg="2" :md="2"
+          ><div class='classAddButton'>
+          <el-button
             id="addButton"
             :disabled="this.isInSearch"
             v-on:click="onAdd"
             >{{ $t("Actions.ButtonAdd") }}</el-button
-          ></el-col
-        >
-        <div class="block">
-          <!-- <span class="demonstration">Default</span> -->
-          <el-date-picker
-            v-model="value1"
-            type="datetimerange"
-            range-separator="To"
-            start-placeholder="Start date"
-            end-placeholder="End date"
-          >
-          </el-date-picker>
-        </div>
+          ></div></el-col>
       </el-row>
     </el-form>
   </div>

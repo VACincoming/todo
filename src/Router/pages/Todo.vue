@@ -27,19 +27,8 @@ export default class Todo extends Vue {
   <div id="todo">
     <el-container>
       <el-main>
-        <el-row type="flex" class="row-bg">
-          <el-col :offset="5" :xs="24" :sm="24" :md="24" :lg="15">
-            <!-- <el-select v-model="value" @change='setLocale($event)' placeholder="Select">
-              <el-option
-                v-for="item in this.options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select> -->
-            <!-- <a href="#" @click="setLocale('en')">ENG</a>
-            <br>
-            <a href="#" @click="setLocale('ru')">RUS</a> -->
+        <el-row type="flex" class="row-bg" justify="start" align="middle">
+          <el-col :offset="4" :xs="24" :sm="24" :md="16" :lg="16">
             <el-alert
               v-show="this.alertMsg"
               :title="$t('AlertTitle')"

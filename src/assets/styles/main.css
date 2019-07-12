@@ -1,13 +1,29 @@
-.el-row {
-    margin-bottom: 20px;
-  }
+
   .el-row:last-child {
       margin-bottom: 0;
     }
   .el-col {
     border-radius: 4px;
-    background-color: #f9fafc;
-    padding: 5px 50px;
+    /* background-color: #f9fafc; */
+    padding: 5px 0px;
+  }
+  .icon-color{
+    color:#fff;
+  }
+  .wrapper-list{
+    width: 100%;
+  }
+  .edit{
+    background: #00b3ffa6;
+  }
+  .delete{
+    background: #ff5800b8;
+  }
+  .failed_icon-color{
+    background: #42030391;
+  }
+  .failed{
+    background: #ff5900f3;
   }
   .bg-purple-dark {
     background: #99a9bf;
@@ -38,6 +54,7 @@ h4{
 }
 ul{
   padding: 0;
+  margin-top:0px;
 }
 li{
   text-decoration: none;
@@ -45,6 +62,9 @@ li{
 }
 .is-checked .el-checkbox__label{
   text-decoration: line-through;
+}
+.el-checkbox__inner{
+  margin-left: 10px;
 }
 .li-progress{
   display: flex;
@@ -54,7 +74,7 @@ li{
 
 .list-item {
   /* display: inline-block; */
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 .list-enter-active, .list-leave-active {
   transition: all 1s;
@@ -90,6 +110,11 @@ li{
   color: #409EFF;
   font-size: 16px;
 }
-.el-icon-arrow-down {
-  /* font-size: 12px; */
+.classAddButton{
+  margin-left:12px;
+}
+
+.indicator{
+  padding: 0;
+  margin: 0;
 }

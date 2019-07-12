@@ -1,9 +1,10 @@
-import { Module } from "vuex";
 import { TodoState } from "./types";
 import { RootState } from "./types";
 import { ActionTree, MutationTree } from "vuex";
 import elems from "./types";
 import OtherTodo from "./OtherTodo";
+import moment from "moment";
+
 
 const state: TodoState = {
   elems: Array<elems>(),
@@ -20,7 +21,10 @@ const actions: ActionTree<TodoState, RootState> = {
     const correctData = {
       id: data.id,
       label: data.title,
-      done: data.completed
+      done: data.completed,
+      failed: false,
+      dataStart: moment().format('L'),
+      dataEnd: moment().add(3, 'days').format('L')
     };
     commit("setInit", correctData);
   },

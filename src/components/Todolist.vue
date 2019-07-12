@@ -8,7 +8,8 @@ import { State, Action } from "vuex-class";
 import store from "@/store/index";
 import { TodoState, OtherTodoState } from "../store/modules/types";
 import moment from "moment";
-import "moment/locale/pt-br";
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 const Todos = namespace("Todos");
 const OtherTodo = namespace("OtherTodo");
@@ -32,11 +33,14 @@ export default class Todolist extends Vue {
   @OtherTodo.Action DeleteItem: any;
   @OtherTodo.Action Search: any;
 
-  createList(label: string) {
+  createList(label: string, dataStart:string, dataEnd:string, failed:boolean) {
     return {
       id: ++this.id,
       label,
-      done: false
+      done: false,
+      failed,
+      dataStart,
+      dataEnd,
     };
   }
   onDeletedItem(id: number) {
@@ -75,6 +79,17 @@ export default class Todolist extends Vue {
         });
       });
   }
+  searchData(valueData:any){
+    valueData[0] = moment(valueData[0]).format('L');
+    valueData[1] = moment(valueData[1]).format('L');
+    const newElems = this.oldElems.filter((elem:any) => {
+      return elem.dataStart >= valueData[0] && elem.dataEnd <= valueData[1];
+    })
+    if (newElems.length === 0) this.NoMatches(true);
+    else this.NoMatches(false);
+ const payload = { key1: newElems, key2: true };
+      this.Search(payload);
+  }
 
   search(searchText: string) {
     const newElems = this.oldElems.filter((elem: any) => {
@@ -91,11 +106,17 @@ export default class Todolist extends Vue {
       this.Search(payload);
     }
   }
+  
   mounted() {
-    console.log(moment("12-25-1995", "MM-DD-YYYY")); // en
     this.InitList();
     this.InitList();
-    eventBus.$on("on-add", (text: string) => {
+    eventBus.$on("on-add", (text: string, value1:string) => {
+      const dataStart = moment(value1[0]).format('L');
+      const dataEnd  = moment(value1[1]).format('L');
+      let failed:boolean = false;
+      if(dataEnd < moment().format('L')){
+        failed = true;
+      }
       if (text.trim().length < 1) {
         this.AlertSpace(true);
         setTimeout(() => {
@@ -110,11 +131,13 @@ export default class Todolist extends Vue {
         }, 2000);
         return;
       }
-      const task = this.createList(text.trim());
+      const task = this.createList(text.trim(), dataStart, dataEnd, failed);
       this.AddList(task);
       this.NoMatches(false);
     });
     eventBus.$on("on-search", (searchText: string) => this.search(searchText));
+    eventBus.$on("on-search-data", (valueData: any) => this.searchData(valueData));
+
   }
 }
 </script>
@@ -124,24 +147,50 @@ export default class Todolist extends Vue {
     <h4 v-show="this.matches" class="animated rubberBand">
       No matches
     </h4>
+    <el-row :gutter="1">
+      <el-col class='indicator' :span="8">
+        <h3>Tasks:</h3>
+      </el-col>
+      <el-col class='indicator' :span="6">
+        <h3>Start:</h3>
+      </el-col>
+       <el-col class='indicator' :span="6">
+        <h3>End:</h3>
+      </el-col>
+      <el-col class='indicator' :span="4">
+        <h3>Actions:</h3>
+      </el-col>
+    </el-row>
     <transition-group name="list" tag="ul">
-      <li v-for="elem in this.elems" v-bind:key="elem.id" class="list-item">
-        <el-row type="flex" class="row-bg" justify="space-between">
-          <el-col :span="12">
-            <el-checkbox v-model="elem.done"
-              ><p>{{ elem.label }}</p></el-checkbox
-            ></el-col
-          >
-          <el-col :span="12"
-            ><el-button-group>
-              <el-button @click="() => onEditItem(elem.id)"
-                ><i class="el-icon-edit"></i
-              ></el-button>
-              <el-button @click="() => onDeletedItem(elem.id)"
-                ><i class="el-icon-delete"></i
-              ></el-button> </el-button-group
-          ></el-col>
-        </el-row>
+      <li v-for="elem in this.elems" v-bind:key="elem.id" class="list-item" v-bind:class="{ failed: elem.failed}">
+          <el-row type="flex" class="row-bg" justify="start" align="middle">
+              <el-col :span="8">
+                <el-checkbox v-model="elem.done"
+                  ><p>{{ elem.label }}</p>
+                  <!-- <p>{{elem.failed}}</p> -->
+                    </el-checkbox
+                ></el-col
+              ><el-col :span="6">
+                  <p>{{elem.dataStart}}</p>
+                </el-col>
+                <el-col :span="6">
+                  <p>{{elem.dataEnd}}</p>
+                </el-col>
+              <el-col :span="4"
+                ><el-button-group>
+                  <el-button @click="() => onEditItem(elem.id)" class='edit icon-color'
+                    ><i class="el-icon-edit"></i
+                  ></el-button>
+                  <el-button @click="() => onDeletedItem(elem.id)" class='delete icon-color'
+                    ><i class="el-icon-delete"></i
+                  ></el-button> 
+                  <el-button v-if=elem.failed class='failed_icon-color icon-color'>
+                  <i class='el-icon-warning-outline'/>
+                </el-button>
+                </el-button-group
+              ></el-col>
+             
+          </el-row>
       </li>
     </transition-group>
   </div>
