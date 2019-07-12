@@ -9,7 +9,7 @@ import { TodoState, OtherTodoState } from "@/store/modules/types";
 const OtherTodo = namespace("OtherTodo");
 
 import "@/assets/styles/main.css";
-import { Option } from 'element-ui';
+import { Option } from "element-ui";
 @Component({
   components: {
     Add,
@@ -20,7 +20,6 @@ import { Option } from 'element-ui';
 export default class Todo extends Vue {
   @OtherTodo.State alertMsg: any;
   @OtherTodo.State alertMsgSpace: any;
-
 }
 </script>
 
@@ -59,7 +58,7 @@ export default class Todo extends Vue {
               center
             >
             </el-alert>
-            <h1>{{$t('Title')}}</h1>
+            <h1>{{ $t("Title") }}</h1>
             <Add />
             <FilterTodo />
             <todolist />

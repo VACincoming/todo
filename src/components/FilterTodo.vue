@@ -31,7 +31,7 @@ export default class Reverse extends Vue {
       <el-row :gutter="1">
         <el-col :span="3.5"
           ><el-button id="reverseButtonId" v-on:click="onReverse"
-            >{{$t('Actions.ButtonReverse')}}<i class="el-icon-sort"
+            >{{ $t("Actions.ButtonReverse") }}<i class="el-icon-sort"
           /></el-button>
         </el-col>
         <el-col :span="9"
@@ -42,7 +42,7 @@ export default class Reverse extends Vue {
             id="searchButtonId"
             icon="el-icon-search"
             v-on:click="onSearch"
-            >{{$t('Actions.ButtonSearch')}}</el-button
+            >{{ $t("Actions.ButtonSearch") }}</el-button
           ></el-col
         >
       </el-row>

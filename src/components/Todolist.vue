@@ -7,7 +7,8 @@ import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 import { State, Action } from "vuex-class";
 import store from "@/store/index";
 import { TodoState, OtherTodoState } from "../store/modules/types";
-// import { otherTodo } from '../store/modules/otherTodo';
+import moment from "moment";
+import "moment/locale/pt-br";
 
 const Todos = namespace("Todos");
 const OtherTodo = namespace("OtherTodo");
@@ -63,8 +64,7 @@ export default class Todolist extends Vue {
         } else {
           this.$message({
             type: "info",
-            message:
-             this.$t("EditElseMessage").toString()
+            message: this.$t("EditElseMessage").toString()
           });
         }
       })
@@ -92,6 +92,7 @@ export default class Todolist extends Vue {
     }
   }
   mounted() {
+    console.log(moment("12-25-1995", "MM-DD-YYYY")); // en
     this.InitList();
     this.InitList();
     eventBus.$on("on-add", (text: string) => {

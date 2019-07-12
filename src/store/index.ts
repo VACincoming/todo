@@ -17,7 +17,7 @@ const store = {
   modules: {
     Todos,
     OtherTodo
-  },
+  }
   // plugins: [vuexPersist.plugin]
 };
 
