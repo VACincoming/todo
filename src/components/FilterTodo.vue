@@ -53,7 +53,7 @@ export default class Reverse extends Vue {
           ></el-col
         >
       </el-row>
-      <el-row :gutter="1" justify="space-between">
+      <el-row :gutter="10" justify="space-between" align="bottom">
         <el-col :span='18'>
            <div class="block">
             <el-date-picker

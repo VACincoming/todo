@@ -149,16 +149,16 @@ export default class Todolist extends Vue {
     </h4>
     <el-row :gutter="1">
       <el-col class='indicator' :span="8">
-        <h3>Tasks:</h3>
+        <h3>{{$t("Headers.Tasks")}}:</h3>
       </el-col>
       <el-col class='indicator' :span="6">
-        <h3>Start:</h3>
+        <h3>{{$t("Headers.Start")}}:</h3>
       </el-col>
        <el-col class='indicator' :span="6">
-        <h3>End:</h3>
+        <h3>{{$t("Headers.End")}}:</h3>
       </el-col>
       <el-col class='indicator' :span="4">
-        <h3>Actions:</h3>
+        <h3>{{$t("Headers.ActionsTitle")}}:</h3>
       </el-col>
     </el-row>
     <transition-group name="list" tag="ul">
@@ -184,9 +184,11 @@ export default class Todolist extends Vue {
                   <el-button @click="() => onDeletedItem(elem.id)" class='delete icon-color'
                     ><i class="el-icon-delete"></i
                   ></el-button> 
-                  <el-button v-if=elem.failed class='failed_icon-color icon-color'>
-                  <i class='el-icon-warning-outline'/>
-                </el-button>
+                  <el-tooltip v-if=elem.failed class="item" effect="dark" :content="$t('FailedWarning')" placement="right-start">
+                    <el-button  class='failed_icon-color icon-color'>
+                      <i class='el-icon-warning-outline'/>
+                    </el-button>
+                  </el-tooltip>
                 </el-button-group
               ></el-col>
              

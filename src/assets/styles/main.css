@@ -23,7 +23,7 @@
     background: #42030391;
   }
   .failed{
-    background: #ff5900f3;
+    background: #ff59005c;
   }
   .bg-purple-dark {
     background: #99a9bf;
@@ -72,10 +72,6 @@ li{
   margin-top: 20px;
 }
 
-.list-item {
-  /* display: inline-block; */
-  /* margin-right: 10px; */
-}
 .list-enter-active, .list-leave-active {
   transition: all 1s;
 }
@@ -118,3 +114,30 @@ li{
   padding: 0;
   margin: 0;
 }
+@media only screen and (min-width: 999px) { 
+  #addButton {
+    margin-left: 190px;
+    }
+  }
+
+@media only screen and (min-width: 1279px) {
+  #addButton {
+  margin-left: 120px;
+  }
+}
+@media only screen and (min-width: 1500px) { 
+  #addButton {
+    margin-left: 80px;
+    }
+  }
+
+@media only screen and (min-width: 1800px) { 
+  #addButton {
+    margin-left: 20px;
+    }
+  }
+@media only screen and (min-width: 1800px) { 
+  #addButton {
+    margin-left: 12px;
+    }
+  }

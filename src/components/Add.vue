@@ -52,24 +52,25 @@ export default class Add extends Vue {
             v-on:keypress.enter="onAdd"
         /></el-col>
         <el-col :xs="12" :md="9" :lg="8" :sm="12">
-          <div class="block">
+          <div class="block" id="addDataPicker">
             <el-date-picker
               v-model="value1"
               type="daterange"
               range-separator="To"
               start-placeholder="Start date"
-              end-placeholder="End date">
+              end-placeholder="End date"
+              >
             </el-date-picker>
           </div>
         </el-col>
         <el-col :lg="2" :md="2"
-          ><div class='classAddButton'>
+          >
           <el-button
             id="addButton"
             :disabled="this.isInSearch"
             v-on:click="onAdd"
             >{{ $t("Actions.ButtonAdd") }}</el-button
-          ></div></el-col>
+          ></el-col>
       </el-row>
     </el-form>
   </div>
