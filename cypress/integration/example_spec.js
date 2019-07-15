@@ -53,7 +53,7 @@ describe("Knowledge Base Application", () => {
       cy.get(".el-button")
         .contains("Edit")
         .click();
-      cy.get(".list-item").should("have.text", "Some edited text");
+      cy.get(".list-item").should("contain", "Some edited text");
     }),
     it("Test disabled Add", () => {
       cy.get('input[id="searchInputId"]').type(task.text);
@@ -73,5 +73,21 @@ describe("Knowledge Base Application", () => {
         .should("have.value", task.text);
       cy.get("#addButton").click();
       cy.get(".list-item").should("have.length", 3);
+    }),
+    it("Testing Datapicker on add", () => {
+      cy.get("#addDataPicker").click();
+      cy.get(".el-date-table__row")
+        .first()
+        .click();
+      cy.get(".el-date-table__row")
+        .first()
+        .click();
+      cy.get('input[id="addInput"]')
+        .type("333222")
+        .should("have.value", "333222");
+      cy.get("#addButton").click();
+      cy.get(".list-item")
+        .last()
+        .should("have.class", "failed");
     });
 });

@@ -1,16 +1,15 @@
-import { Module } from "vuex";
 import { TodoState } from "./types";
 import { RootState } from "./types";
 import { ActionTree, MutationTree } from "vuex";
 import elems from "./types";
 import OtherTodo from "./OtherTodo";
+import moment from "moment";
+
 
 const state: TodoState = {
   elems: Array<elems>(),
   oldElems: Array<elems>()
 };
-
-// const namespaced: boolean = true;
 
 const actions: ActionTree<TodoState, RootState> = {
   async InitList({ commit }) {
@@ -20,7 +19,10 @@ const actions: ActionTree<TodoState, RootState> = {
     const correctData = {
       id: data.id,
       label: data.title,
-      done: data.completed
+      done: data.completed,
+      failed: false,
+      dataStart: moment().format('L'),
+      dataEnd: moment().add(3, 'days').format('L')
     };
     commit("setInit", correctData);
   },
@@ -28,7 +30,7 @@ const actions: ActionTree<TodoState, RootState> = {
     commit("setList", task);
   },
   ReverseList({ commit }, elems) {
-    console.log('Acr Rev')
+    console.log("Acr Rev");
     const reverseList = elems.reverse();
     commit("setReverseList", reverseList);
   },
@@ -63,4 +65,3 @@ export default {
   mutations
 };
 
-// const namespaced: boolean = true;

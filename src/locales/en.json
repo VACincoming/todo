@@ -21,5 +21,12 @@
   "Language": "Choose Language",
   "AlertTitle": "Error alert",
   "AlertMsg": "Enter task before click Add",
-  "AlertSpaceMsg": "This ToDo item has already exists in your list"
+  "AlertSpaceMsg": "This ToDo item has already exists in your list",
+  "Headers": {
+    "Start": "Start",
+    "Tasks": "Tasks",
+    "End": "End",
+    "ActionsTitle": "Actions"
+  },
+  "FailedWarning": "Task was failed because data has expired"
 }
