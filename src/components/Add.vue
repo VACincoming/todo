@@ -6,9 +6,6 @@ import { OtherTodoState } from "../store/modules/types";
 const OtherTodo = namespace("OtherTodo");
 import moment from "moment";
 
-// import "moment/locale/pt-br";
-
-
 @Component
 export default class Add extends Vue {
   @OtherTodo.State isInSearch: any;

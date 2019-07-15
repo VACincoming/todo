@@ -17,8 +17,6 @@ export default class App extends Vue {
   setLocale(locale: string) {
     this.model = locale;
     this.$i18n.locale = locale;
-
-    console.log(this.model);
   }
 }
 </script>
@@ -85,24 +83,6 @@ export default class App extends Vue {
               <span>{{ $t("Home") }}</span>
             </el-menu-item></router-link
           >
-
-          <!-- <el-submenu class="el__submenu" index="4">
-            <template slot="title">
-              <span>{{$t("Language")}}</span>
-            </template>
-            <el-menu-item-group class="el-menu-item__group">
-              <a href="#" @click="setLocale('en')"
-                ><el-menu-item index="1-1"
-                  >Eng</el-menu-item
-                ></a
-              >
-              <a href="#" @click="setLocale('ru')"
-                ><el-menu-item index="1-1"
-                  >Rus</el-menu-item
-                ></a
-              >
-            </el-menu-item-group>
-          </el-submenu> -->
         </el-menu>
       </el-col>
       <el-col class="purple">

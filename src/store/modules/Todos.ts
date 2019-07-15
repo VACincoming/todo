@@ -11,8 +11,6 @@ const state: TodoState = {
   oldElems: Array<elems>()
 };
 
-// const namespaced: boolean = true;
-
 const actions: ActionTree<TodoState, RootState> = {
   async InitList({ commit }) {
     const data = await fetch(
@@ -67,4 +65,3 @@ export default {
   mutations
 };
 
-// const namespaced: boolean = true;
